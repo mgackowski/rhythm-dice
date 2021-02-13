@@ -16,7 +16,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
     public void Notify(MetronomeTick tick)
     {
         Debug.Log("Tick!");
-        MoveOneStep(); // keep rotating north for testing only
+        MoveOneStep();
     }
 
     public void MoveOneStep()
@@ -25,6 +25,13 @@ public class Die : MonoBehaviour, IMetronomeObserver
         topFaceOrientation = movement.NewOrientation;
         currentSide = movement.NewSide;
         currentAttack = currentSide.Value;
+
+        Vector3 thisPosition = transform.position;
+        if (movementDirection == Direction.Up) thisPosition.y += 1;
+        if (movementDirection == Direction.Down) thisPosition.y -= 1;
+        if (movementDirection == Direction.Left) thisPosition.x -= 1;
+        if (movementDirection == Direction.Right) thisPosition.x += 1;
+        transform.position = thisPosition;
 
     }
 
@@ -39,11 +46,18 @@ public class Die : MonoBehaviour, IMetronomeObserver
     // Update is called once per frame
     void Update()
     {
-        
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (verticalInput > 0.5f) movementDirection = Direction.Up;
+        if (verticalInput < -0.5f) movementDirection = Direction.Down;
+        if (horizontalInput > 0.5f) movementDirection = Direction.Right;
+        if (horizontalInput < -0.5f) movementDirection = Direction.Left;
     }
 
     void Destroy()
     {
         metronome.GetComponent<Metronome>().RemoveObserver(this);
     }
+
 }
