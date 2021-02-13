@@ -223,6 +223,11 @@ PrefabInstance:
       propertyPath: movementDirection
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3798667866958767681, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767687, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_Name
@@ -5235,6 +5240,11 @@ PrefabInstance:
       propertyPath: metronome
       value: 
       objectReference: {fileID: 1355780637}
+    - target: {fileID: 1482230645405482128, guid: 7097de726a0acdc4dbc75b3a44b75713,
+        type: 3}
+      propertyPath: attackPower
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7053217453797817743, guid: 7097de726a0acdc4dbc75b3a44b75713,
         type: 3}
       propertyPath: m_Name
