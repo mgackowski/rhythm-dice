@@ -724,6 +724,8 @@ GameObject:
   - component: {fileID: 3798667866958767682}
   - component: {fileID: 3798667866958767681}
   - component: {fileID: 3798667866958767680}
+  - component: {fileID: 1254977724245401356}
+  - component: {fileID: 593168352701946873}
   m_Layer: 0
   m_Name: Die
   m_TagString: Die
@@ -839,6 +841,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   metronome: {fileID: 0}
+  dieRotationSpeed: 5
+  currentAttack: 1
+  topFaceOrientation: 0
+  movementDirection: 0
+--- !u!135 &1254977724245401356
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798667866958767687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &593168352701946873
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798667866958767687}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4381083276070394523
 GameObject:
   m_ObjectHideFlags: 0

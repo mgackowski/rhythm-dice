@@ -14,10 +14,14 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     private DieModel dieModel;
     private DieSide currentSide;
+    private SphereCollider obstacleDetector;
 
     public void Notify(MetronomeTick tick)
     {
         Debug.Log("Tick!");
+
+        
+
         MoveOneStep();
     }
 
@@ -88,18 +92,58 @@ public class Die : MonoBehaviour, IMetronomeObserver
         metronome.GetComponent<Metronome>().AddObserver(this);
         dieModel = new DieModel();
         currentSide = dieModel.Sides[Side.Top];
+        obstacleDetector = GetComponent<SphereCollider>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if (verticalInput > 0.5f) movementDirection = Direction.Up;
-        if (verticalInput < -0.5f) movementDirection = Direction.Down;
-        if (horizontalInput > 0.5f) movementDirection = Direction.Right;
-        if (horizontalInput < -0.5f) movementDirection = Direction.Left;
+        if (verticalInput > 0.5f)
+        {
+            movementDirection = Direction.Up;
+        }
+        if (verticalInput < -0.5f)
+        {
+            movementDirection = Direction.Down;
+        }
+        if (horizontalInput > 0.5f)
+        {
+            movementDirection = Direction.Right;
+        }
+        if (horizontalInput < -0.5f)
+        {
+            movementDirection = Direction.Left;
+        }
+
+
+        // Keep collider ahead of die
+        if (movementDirection == Direction.Up)
+        {
+            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
+        }
+        if (movementDirection == Direction.Down)
+        {
+            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z));
+        }
+        if (movementDirection == Direction.Left)
+        {
+            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z));
+        }
+        if (movementDirection == Direction.Right)
+        {
+            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z));
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy sighted!");
+        }
     }
 
     void Destroy()

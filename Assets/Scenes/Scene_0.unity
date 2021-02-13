@@ -189,6 +189,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1482230645405482128, guid: 7097de726a0acdc4dbc75b3a44b75713,
+        type: 3}
+      propertyPath: metronome
+      value: 
+      objectReference: {fileID: 1355780637}
     - target: {fileID: 7053217453797817743, guid: 7097de726a0acdc4dbc75b3a44b75713,
         type: 3}
       propertyPath: m_Name
@@ -490,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b17d5ecc1044845ab1078dbc72ede4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 1
+  interval: 0.6666667
 --- !u!4 &1355780638
 Transform:
   m_ObjectHideFlags: 0
@@ -5225,6 +5230,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1482230645405482128, guid: 7097de726a0acdc4dbc75b3a44b75713,
+        type: 3}
+      propertyPath: metronome
+      value: 
+      objectReference: {fileID: 1355780637}
     - target: {fileID: 7053217453797817743, guid: 7097de726a0acdc4dbc75b3a44b75713,
         type: 3}
       propertyPath: m_Name
