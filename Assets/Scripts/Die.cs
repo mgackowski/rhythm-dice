@@ -15,14 +15,46 @@ public class Die : MonoBehaviour, IMetronomeObserver
     private DieModel dieModel;
     private DieSide currentSide;
     private SphereCollider obstacleDetector;
+    private GameObject nextTile;
 
     public void Notify(MetronomeTick tick)
     {
         Debug.Log("Tick!");
 
-        
-
+        ReactToObstacles();
         MoveOneStep();
+    }
+
+    public void ReactToObstacles()
+    {
+        if (nextTile != null && nextTile.CompareTag("Enemy"))
+        {
+            Enemy enemy = nextTile.GetComponent<Enemy>();
+            int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
+            if (enemy.attackPower > nextDieAttack)
+            {
+                movementDirection = ReverseDirection(movementDirection);
+                // Take damage
+            } else if (enemy.attackPower == nextDieAttack)
+            {
+                movementDirection = ReverseDirection(movementDirection);
+            } else
+            {
+                Destroy(nextTile);
+            }
+        }
+    }
+
+    private Direction ReverseDirection(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Up:      return Direction.Down;
+            case Direction.Right:   return Direction.Left;
+            case Direction.Down:    return Direction.Up;
+            case Direction.Left:    return Direction.Right;
+            default:                return Direction.Up;
+        }
     }
 
     public void MoveOneStep()
@@ -142,7 +174,15 @@ public class Die : MonoBehaviour, IMetronomeObserver
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy sighted!");
+            nextTile = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            nextTile = null;
         }
     }
 
