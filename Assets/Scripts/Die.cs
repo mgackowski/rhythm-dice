@@ -6,6 +6,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
 {
     public Metronome metronome; //TODO: Find single instance instead of using Inspector
 
+    public float dieRotationSpeed = 5f; // TODO: Make dependent on metronome speed
+
     public int currentAttack = 1;
     public Direction topFaceOrientation = Direction.Up;
     public Direction movementDirection = Direction.Up;
@@ -21,21 +23,66 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     public void MoveOneStep()
     {
+        // Compute new die value and orientation
         DieMovementModel.DieMoveResult movement = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection);
         topFaceOrientation = movement.NewOrientation;
         currentSide = movement.NewSide;
         currentAttack = currentSide.Value;
 
+
+        // Physically move the die
         Vector3 thisPosition = transform.position;
-        if (movementDirection == Direction.Up) thisPosition.y += 1;
-        if (movementDirection == Direction.Down) thisPosition.y -= 1;
-        if (movementDirection == Direction.Left) thisPosition.x -= 1;
-        if (movementDirection == Direction.Right) thisPosition.x += 1;
-        transform.position = thisPosition;
+        Vector3 rotationPoint = transform.position;
+        Vector3 rotationAxis = Vector3.zero;
+
+        if (movementDirection == Direction.Up)
+        {
+            thisPosition.y += 1;
+            rotationPoint.y += 0.5f;
+            rotationAxis = Vector3.right;
+        }
+        if (movementDirection == Direction.Down)
+        {
+            thisPosition.y -= 1;
+            rotationPoint.y -= 0.5f;
+            rotationAxis = Vector3.left;
+        }
+        if (movementDirection == Direction.Left)
+        {
+            thisPosition.x -= 1;
+            rotationPoint.x -= 0.5f;
+            rotationAxis = Vector3.up;
+        }
+        if (movementDirection == Direction.Right)
+        {
+            thisPosition.x += 1;
+            rotationPoint.x += 0.5f;
+            rotationAxis = Vector3.down;
+        }
+        //transform.position = thisPosition;
+        rotationPoint.z += 0.5f;
+
+        StartCoroutine(RotateSmoothly(rotationPoint, rotationAxis, thisPosition));
 
     }
 
-    // Start is called before the first frame update
+    private IEnumerator RotateSmoothly(Vector3 rotationPoint, Vector3 rotationAxis, Vector3 newPosition)
+    {
+        float rotationCompleted = 0f;
+        float rotationTarget = 90f;
+
+        while (rotationCompleted < rotationTarget)
+        {
+            float nextRotation = 90f * dieRotationSpeed * Time.deltaTime;
+            if (rotationCompleted + nextRotation > rotationTarget) nextRotation = rotationTarget - rotationCompleted;
+            transform.RotateAround(rotationPoint, rotationAxis, nextRotation);
+            rotationCompleted += nextRotation;
+            yield return null;
+        }
+        transform.position = newPosition;
+
+    }
+
     void Start()
     {
         metronome.GetComponent<Metronome>().AddObserver(this);

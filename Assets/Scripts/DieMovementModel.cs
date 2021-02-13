@@ -24,6 +24,23 @@ public class DieMovementModel
         Direction newOrientationGlobal;
         Vector3 rotationPivot;
 
+        switch(direction)
+        {
+            case Direction.Up:
+                direction = Direction.Down;
+                break;
+            case Direction.Down:
+                direction = Direction.Up;
+                break;
+            case Direction.Left:
+                direction = Direction.Right;
+                break;
+            case Direction.Right:
+                direction = Direction.Left;
+                break;
+
+        }
+
         newSide = currentSide.Sides[(Direction)Mod(((int)direction - (int)currentOrientation), 4)];
         newOrientation = currentSide.Orientations[(Direction)Mod(((int)direction - (int)currentOrientation), 4)];
         newOrientationGlobal = (Direction)Mod((int)newOrientation + (int)currentOrientation,4);
