@@ -7,6 +7,7 @@ public class Metronome : MonoBehaviour
     public float interval = 1f;
 
     private List<IMetronomeObserver> observers;
+    private AudioSource audioSource;
 
 
     void Awake()
@@ -16,6 +17,7 @@ public class Metronome : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(Beat(1f));
     }
     void Update()
@@ -29,6 +31,7 @@ public class Metronome : MonoBehaviour
         while (true)
         {
             NotifyObservers();
+            audioSource.Play();
             yield return new WaitForSeconds(interval);
         }
     }
