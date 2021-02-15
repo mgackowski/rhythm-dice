@@ -60,7 +60,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            nextTile = other.gameObject;
+            // Use raycasting instead
+            //nextTile = other.gameObject;
         }
     }
 
@@ -68,7 +69,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            nextTile = null;
+            // Use raycasting instead
+            //nextTile = null;
         }
     }
 
@@ -82,29 +84,47 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     public void ReactToObstacles()
     {
-        if (nextTile != null && nextTile.CompareTag("Enemy"))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), out hit, 1f))
         {
-            Enemy enemy = nextTile.GetComponent<Enemy>();
-            int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
-            if (enemy.attackPower > nextDieAttack)
+            nextTile = hit.collider.gameObject;
+
+            if (hit.collider.gameObject.CompareTag("Enemy"))
+            {
+
+                Enemy enemy = nextTile.GetComponent<Enemy>();
+                int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
+                if (enemy.attackPower > nextDieAttack)
+                {
+                    movementDirection = ReverseDirection(movementDirection);
+                    if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
+
+                    //UpdateColliderPosition(); no longer needed
+                    // Take damage
+                }
+                else if (enemy.attackPower == nextDieAttack)
+                {
+                    movementDirection = ReverseDirection(movementDirection);
+                    if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
+
+                    //UpdateColliderPosition(); no longer needed
+                }
+                else
+                {
+                    Destroy(nextTile);
+                }
+            }
+
+            if (hit.collider.gameObject.CompareTag("Wall"))
             {
                 movementDirection = ReverseDirection(movementDirection);
-                UpdateColliderPosition();
-                // Take damage
-            }
-            else if (enemy.attackPower == nextDieAttack)
-            {
-                movementDirection = ReverseDirection(movementDirection);
-                UpdateColliderPosition();
-            }
-            else
-            {
-                Destroy(nextTile);
+                if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
             }
         }
-
-        //No room to bounce back
-        // TODO: replace moving collider with raycast
+        else
+        {
+            nextTile = null;
+        }
 
     }
 
@@ -153,6 +173,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     }
 
+    // TODO: move to an enum extension class
     private Direction ReverseDirection(Direction dir)
     {
         switch (dir)
@@ -162,6 +183,23 @@ public class Die : MonoBehaviour, IMetronomeObserver
             case Direction.Down:    return Direction.Up;
             case Direction.Left:    return Direction.Right;
             default:                return Direction.Up;
+        }
+    }
+
+    // TODO: move to an enum extension class
+    private Vector3 DirectionToVector3(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Up:
+                return Vector3.up;
+            case Direction.Right:
+                return Vector3.right;
+            case Direction.Down:
+                return Vector3.down;
+            case Direction.Left:
+                return Vector3.left;
+            default: return Vector3.zero;
         }
     }
 
