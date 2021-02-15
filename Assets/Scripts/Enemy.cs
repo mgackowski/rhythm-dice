@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IMetronomeObserver
 {
     public int attackPower = 0;
-    public Metronome metronome;
+    private Metronome metronome;
 
     public void Notify(MetronomeTick tick)
     {
@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
     // Start is called before the first frame update
     void Start()
     {
+        metronome = GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>();
         metronome.AddObserver(this);
     }
 

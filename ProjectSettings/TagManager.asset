@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Die
   - Enemy
+  - Wall
+  - Metronome
   layers:
   - Default
   - TransparentFX

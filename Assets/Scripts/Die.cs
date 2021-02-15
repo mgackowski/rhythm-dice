@@ -11,18 +11,73 @@ public class Die : MonoBehaviour, IMetronomeObserver
     public int currentAttack = 1;
     public Direction topFaceOrientation = Direction.Up;
     public Direction movementDirection = Direction.Up;
+    public bool stopped = false;
 
     private DieModel dieModel;
     private DieSide currentSide;
     private SphereCollider obstacleDetector;
     private GameObject nextTile;
 
+    void Start()
+    {
+        metronome.GetComponent<Metronome>().AddObserver(this);
+        dieModel = new DieModel();
+        currentSide = dieModel.Sides[Side.Top];
+        obstacleDetector = GetComponent<SphereCollider>();
+    }
+
+    void Update()
+    {
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (verticalInput > 0.5f)
+        {
+            movementDirection = Direction.Up;
+            stopped = false;
+        }
+        if (verticalInput < -0.5f)
+        {
+            movementDirection = Direction.Down;
+            stopped = false;
+        }
+        if (horizontalInput > 0.5f)
+        {
+            movementDirection = Direction.Right;
+            stopped = false;
+        }
+        if (horizontalInput < -0.5f)
+        {
+            movementDirection = Direction.Left;
+            stopped = false;
+        }
+
+        UpdateColliderPosition();
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            nextTile = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            nextTile = null;
+        }
+    }
+
     public void Notify(MetronomeTick tick)
     {
         Debug.Log("Tick!");
 
         ReactToObstacles();
-        MoveOneStep();
+        if (!stopped) MoveOneStep();
     }
 
     public void ReactToObstacles()
@@ -34,27 +89,23 @@ public class Die : MonoBehaviour, IMetronomeObserver
             if (enemy.attackPower > nextDieAttack)
             {
                 movementDirection = ReverseDirection(movementDirection);
+                UpdateColliderPosition();
                 // Take damage
-            } else if (enemy.attackPower == nextDieAttack)
+            }
+            else if (enemy.attackPower == nextDieAttack)
             {
                 movementDirection = ReverseDirection(movementDirection);
-            } else
+                UpdateColliderPosition();
+            }
+            else
             {
                 Destroy(nextTile);
             }
         }
-    }
 
-    private Direction ReverseDirection(Direction dir)
-    {
-        switch (dir)
-        {
-            case Direction.Up:      return Direction.Down;
-            case Direction.Right:   return Direction.Left;
-            case Direction.Down:    return Direction.Up;
-            case Direction.Left:    return Direction.Right;
-            default:                return Direction.Up;
-        }
+        //No room to bounce back
+        // TODO: replace moving collider with raycast
+
     }
 
     public void MoveOneStep()
@@ -102,55 +153,21 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     }
 
-    private IEnumerator RotateSmoothly(Vector3 rotationPoint, Vector3 rotationAxis, Vector3 newPosition)
+    private Direction ReverseDirection(Direction dir)
     {
-        float rotationCompleted = 0f;
-        float rotationTarget = 90f;
-
-        while (rotationCompleted < rotationTarget)
+        switch (dir)
         {
-            float nextRotation = 90f * dieRotationSpeed * Time.deltaTime;
-            if (rotationCompleted + nextRotation > rotationTarget) nextRotation = rotationTarget - rotationCompleted;
-            transform.RotateAround(rotationPoint, rotationAxis, nextRotation);
-            rotationCompleted += nextRotation;
-            yield return null;
+            case Direction.Up:      return Direction.Down;
+            case Direction.Right:   return Direction.Left;
+            case Direction.Down:    return Direction.Up;
+            case Direction.Left:    return Direction.Right;
+            default:                return Direction.Up;
         }
-        transform.position = newPosition;
-
     }
 
-    void Start()
+
+    private void UpdateColliderPosition()
     {
-        metronome.GetComponent<Metronome>().AddObserver(this);
-        dieModel = new DieModel();
-        currentSide = dieModel.Sides[Side.Top];
-        obstacleDetector = GetComponent<SphereCollider>();
-    }
-
-    void Update()
-    {
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        if (verticalInput > 0.5f)
-        {
-            movementDirection = Direction.Up;
-        }
-        if (verticalInput < -0.5f)
-        {
-            movementDirection = Direction.Down;
-        }
-        if (horizontalInput > 0.5f)
-        {
-            movementDirection = Direction.Right;
-        }
-        if (horizontalInput < -0.5f)
-        {
-            movementDirection = Direction.Left;
-        }
-
-
-        // Keep collider ahead of die
         if (movementDirection == Direction.Up)
         {
             obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
@@ -167,23 +184,23 @@ public class Die : MonoBehaviour, IMetronomeObserver
         {
             obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z));
         }
-
     }
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator RotateSmoothly(Vector3 rotationPoint, Vector3 rotationAxis, Vector3 newPosition)
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            nextTile = other.gameObject;
-        }
-    }
+        float rotationCompleted = 0f;
+        float rotationTarget = 90f;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
+        while (rotationCompleted < rotationTarget)
         {
-            nextTile = null;
+            float nextRotation = 90f * dieRotationSpeed * Time.deltaTime;
+            if (rotationCompleted + nextRotation > rotationTarget) nextRotation = rotationTarget - rotationCompleted;
+            transform.RotateAround(rotationPoint, rotationAxis, nextRotation);
+            rotationCompleted += nextRotation;
+            yield return null;
         }
+        transform.position = newPosition;
+
     }
 
     void Destroy()
