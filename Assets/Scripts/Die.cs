@@ -95,6 +95,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
             {
 
                 Enemy enemy = nextTile.GetComponent<Enemy>();
+                enemy.playSound();
                 int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
                 if (enemy.attackPower > nextDieAttack)
                 {
@@ -116,7 +117,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 else
                 {
                     audioController.PlaySound(DieAudioController.SoundEffect.DealDamage);
-                    Destroy(nextTile);
+                    Destroy(nextTile); // bug: cuts off enemy sound too early
                 }
             }
 

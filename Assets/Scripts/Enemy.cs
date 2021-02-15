@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
 {
     public int attackPower = 0;
     private Metronome metronome;
+    private AudioSource audioSource;
 
     public void Notify(MetronomeTick tick)
     {
@@ -17,11 +18,21 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
     {
         metronome = GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>();
         metronome.AddObserver(this);
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     private void OnDestroy()
     {
         metronome.RemoveObserver(this);
+    }
+
+    public void playSound()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
     }
 
 }
