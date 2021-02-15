@@ -44,7 +44,7 @@ public class DieMovementModel
         newSide = currentSide.Sides[(Direction)Mod(((int)direction - (int)currentOrientation), 4)];
         newOrientation = currentSide.Orientations[(Direction)Mod(((int)direction - (int)currentOrientation), 4)];
         newOrientationGlobal = (Direction)Mod((int)newOrientation + (int)currentOrientation,4);
-        rotationPivot = Vector3.zero; //TODO
+        rotationPivot = Vector3.zero; //Unused; global coordinates used in Die class
 
         DieMoveResult result = new DieMoveResult
         {
