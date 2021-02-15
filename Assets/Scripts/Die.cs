@@ -17,6 +17,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
     private DieSide currentSide;
     private SphereCollider obstacleDetector;
     private GameObject nextTile;
+    private DieAudioController audioController;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         dieModel = new DieModel();
         currentSide = dieModel.Sides[Side.Top];
         obstacleDetector = GetComponent<SphereCollider>();
+        audioController = GetComponent<DieAudioController>();
     }
 
     void Update()
@@ -97,6 +99,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 if (enemy.attackPower > nextDieAttack)
                 {
                     movementDirection = ReverseDirection(movementDirection);
+                    audioController.PlaySound(DieAudioController.SoundEffect.TakeDamage);
                     if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
 
                     //UpdateColliderPosition(); no longer needed
@@ -105,12 +108,14 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 else if (enemy.attackPower == nextDieAttack)
                 {
                     movementDirection = ReverseDirection(movementDirection);
+                    audioController.PlaySound(DieAudioController.SoundEffect.Rebound);
                     if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
 
                     //UpdateColliderPosition(); no longer needed
                 }
                 else
                 {
+                    audioController.PlaySound(DieAudioController.SoundEffect.DealDamage);
                     Destroy(nextTile);
                 }
             }
@@ -170,6 +175,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
         rotationPoint.z += 0.5f;
 
         StartCoroutine(RotateSmoothly(rotationPoint, rotationAxis, thisPosition));
+
+        audioController.PlayBeat(currentAttack);
 
     }
 
