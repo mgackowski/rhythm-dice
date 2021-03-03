@@ -5,6 +5,7 @@ using UnityEngine;
 public class Die : MonoBehaviour, IMetronomeObserver
 {
     public Metronome metronome; //TODO: Find single instance instead of using Inspector
+    public MovementIndicator movementIndicator;
 
     public float dieRotationSpeed = 5f; // TODO: Make dependent on metronome speed
 
@@ -32,6 +33,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        bool displayMovementIndicator = false;
 
         if (verticalInput > 0.5f)
         {
@@ -53,6 +55,20 @@ public class Die : MonoBehaviour, IMetronomeObserver
             movementDirection = Direction.Left;
             stopped = false;
         }
+
+        if (Input.anyKeyDown) displayMovementIndicator = true;
+
+        if (displayMovementIndicator)
+        {
+            Vector3 movementIndicatorPosition = transform.position;
+            movementIndicatorPosition.z = 0.49f; //TODO: Magic number
+            movementIndicatorPosition += DirectionToVector3(movementDirection);
+            movementIndicatorPosition.x = Mathf.Round(movementIndicatorPosition.x);
+            movementIndicatorPosition.y = Mathf.Round(movementIndicatorPosition.y);
+
+            Instantiate(movementIndicator, movementIndicatorPosition, Quaternion.Euler(-90f,0f,0f));
+        }
+
 
         UpdateColliderPosition();
 
