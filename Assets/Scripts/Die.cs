@@ -96,8 +96,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
                 Enemy enemy = nextTile.GetComponent<Enemy>();
                 enemy.playSound();
-                int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
-                if (enemy.attackPower > nextDieAttack)
+                //int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
+                if (enemy.attackPower > currentAttack)
                 {
                     movementDirection = ReverseDirection(movementDirection);
                     audioController.PlaySound(DieAudioController.SoundEffect.TakeDamage);
@@ -106,7 +106,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                     //UpdateColliderPosition(); no longer needed
                     // Take damage
                 }
-                else if (enemy.attackPower == nextDieAttack)
+                else if (enemy.attackPower == currentAttack)
                 {
                     movementDirection = ReverseDirection(movementDirection);
                     audioController.PlaySound(DieAudioController.SoundEffect.Rebound);
