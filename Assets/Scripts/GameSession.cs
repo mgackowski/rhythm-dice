@@ -4,7 +4,7 @@ public class GameSession : MonoBehaviour
 {
     public static GameSession instance;
 
-    public string playerName = "Player";
+    public string playerName  = "Player";
     // store current dice collection
     // store current game piece collection
     public int levelsCompleted = 0;
