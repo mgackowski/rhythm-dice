@@ -2857,6 +2857,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1541115859}
     m_Modifications:
+    - target: {fileID: 399231792453685021, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2874c5b2c2588b54f896c784cb681cb6, type: 2}
     - target: {fileID: 3798667866958767680, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: metronome
@@ -2943,6 +2948,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4546936222374419063, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 644a117f99959ee45a96b087abc53637, type: 2}
     - target: {fileID: 8120828463068232192, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_PlayOnAwake
