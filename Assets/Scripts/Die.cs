@@ -22,7 +22,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     void Start()
     {
-        metronome.GetComponent<Metronome>().AddObserver(this);
+        metronome.GetComponent<Metronome>().AddLateObserver(this);
         dieModel = new DieModel();
         currentSide = dieModel.Sides[Side.Top];
         obstacleDetector = GetComponent<SphereCollider>();
@@ -94,13 +94,13 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     public void PreNotify(MetronomeTick tick)
     {
-        Debug.Log("Pre-Tick!");
+        //Debug.Log("Pre-Tick!");
 
     }
 
     public void Notify(MetronomeTick tick)
     {
-        Debug.Log("Tick!");
+        //Debug.Log("Tick!");
 
         ReactToObstacles();
         if (!stopped) MoveOneStep();

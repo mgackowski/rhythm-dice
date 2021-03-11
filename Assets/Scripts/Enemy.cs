@@ -8,18 +8,18 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
     private Metronome metronome;
     private AudioSource audioSource;
 
-    public void PreNotify(MetronomeTick tick)
+    public virtual void PreNotify(MetronomeTick tick)
     {
-        Debug.Log("Menacing Pre-tick!");
+        //Debug.Log("Menacing Pre-tick!");
     }
 
-    public void Notify(MetronomeTick tick)
+    public virtual void Notify(MetronomeTick tick)
     {
-        Debug.Log("Menacing tick!");
+        //Debug.Log("Menacing tick!");
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         metronome = GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>();
         metronome.AddObserver(this);

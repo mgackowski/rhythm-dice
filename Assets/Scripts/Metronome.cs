@@ -9,12 +9,14 @@ public class Metronome : MonoBehaviour
     public float leadUpTime = 0.33f;
 
     private List<IMetronomeObserver> observers;
+    private List<IMetronomeObserver> lateObservers;
     private AudioSource audioSource;
 
 
     void Awake()
     {
         observers = new List<IMetronomeObserver>();
+        lateObservers = new List<IMetronomeObserver>();
     }
 
     private void Start()
@@ -50,9 +52,15 @@ public class Metronome : MonoBehaviour
         observers.Add(observer);
     }
 
+    public void AddLateObserver(IMetronomeObserver observer)
+    {
+        lateObservers.Add(observer);
+    }
+
     public void RemoveObserver(IMetronomeObserver observer)
     {
         observers.Remove(observer);
+        lateObservers.Remove(observer);
     }
 
     private void PreNotifyObservers()
@@ -71,5 +79,10 @@ public class Metronome : MonoBehaviour
         {
             observer.Notify(tick);
         }
+        foreach (IMetronomeObserver observer in lateObservers)  // use late observers for player after game state is updated
+        {
+            observer.Notify(tick);
+        }
     }
+
 }
