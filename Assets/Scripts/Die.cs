@@ -92,6 +92,12 @@ public class Die : MonoBehaviour, IMetronomeObserver
         }
     }
 
+    public void PreNotify(MetronomeTick tick)
+    {
+        Debug.Log("Pre-Tick!");
+
+    }
+
     public void Notify(MetronomeTick tick)
     {
         Debug.Log("Tick!");

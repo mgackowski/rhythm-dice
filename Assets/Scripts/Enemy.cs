@@ -8,6 +8,11 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
     private Metronome metronome;
     private AudioSource audioSource;
 
+    public void PreNotify(MetronomeTick tick)
+    {
+        Debug.Log("Menacing Pre-tick!");
+    }
+
     public void Notify(MetronomeTick tick)
     {
         Debug.Log("Menacing tick!");
