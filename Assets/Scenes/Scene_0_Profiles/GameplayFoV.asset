@@ -18,13 +18,13 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 38.6
+    value: 8.2
   aperture:
     overrideState: 1
-    value: 0.1
+    value: 31.8
   focalLength:
     overrideState: 1
-    value: 123.4
+    value: 179.4
   kernelSize:
     overrideState: 1
     value: 1
