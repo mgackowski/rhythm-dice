@@ -3155,7 +3155,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 31a831ac619d6f942a4e6d14aa4f3d73, type: 2}
+      objectReference: {fileID: 2100000, guid: 13c30999e71f25e40a42e7f4849f5d68, type: 2}
     - target: {fileID: 3798667866958767680, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: metronome
@@ -3251,7 +3251,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 644a117f99959ee45a96b087abc53637, type: 2}
+      objectReference: {fileID: 2100000, guid: 8b26d9a3a933f2442a58e898f04e1ba6, type: 2}
+    - target: {fileID: 5194957738669764449, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8120828463068232192, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -5991,8 +5996,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.94946337, b: 0.8349056, a: 1}
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7937,7 +7942,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.8018868, g: 0.72428066, b: 0.60898006, a: 1}
+  m_BackGroundColor: {r: 0.9528302, g: 0.9426341, b: 0.8494571, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -20180,12 +20185,12 @@ Transform:
   - {fileID: 1004590976}
   - {fileID: 762412619}
   - {fileID: 864433333}
+  - {fileID: 301652828}
   - {fileID: 237229322}
+  - {fileID: 1541118247}
   - {fileID: 614286871}
   - {fileID: 1515304942}
   - {fileID: 147315224}
-  - {fileID: 1541118247}
-  - {fileID: 301652828}
   - {fileID: 1328039895}
   - {fileID: 947386714}
   m_Father: {fileID: 1541115859}
