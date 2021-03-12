@@ -62,7 +62,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         {
             Vector3 movementIndicatorPosition = transform.position;
             movementIndicatorPosition.z = 0.49f; //TODO: Magic number
-            movementIndicatorPosition += DirectionToVector3(movementDirection);
+            movementIndicatorPosition += movementDirection.DirectionToVector3();
             movementIndicatorPosition.x = Mathf.Round(movementIndicatorPosition.x);
             movementIndicatorPosition.y = Mathf.Round(movementIndicatorPosition.y);
 
@@ -70,7 +70,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         }
 
 
-        UpdateColliderPosition();
+        //UpdateColliderPosition();
 
     }
 
@@ -108,8 +108,10 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     public void ReactToObstacles()
     {
+        //Debug.Log("Die - " + transform.position);
+
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), out hit, 1f))
+        if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), out hit, 1f))
         {
             nextTile = hit.collider.gameObject;
 
@@ -121,18 +123,18 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 //int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
                 if (enemy.attackPower > currentAttack)
                 {
-                    movementDirection = ReverseDirection(movementDirection);
+                    movementDirection = movementDirection.ReverseDirection();
                     audioController.PlaySound(DieAudioController.SoundEffect.TakeDamage);
-                    if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
+                    if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
                     //UpdateColliderPosition(); no longer needed
                     // Take damage
                 }
                 else if (enemy.attackPower == currentAttack)
                 {
-                    movementDirection = ReverseDirection(movementDirection);
+                    movementDirection = movementDirection.ReverseDirection();
                     audioController.PlaySound(DieAudioController.SoundEffect.Rebound);
-                    if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
+                    if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
                     //UpdateColliderPosition(); no longer needed
                 }
@@ -145,8 +147,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
             if (hit.collider.gameObject.CompareTag("Wall"))
             {
-                movementDirection = ReverseDirection(movementDirection);
-                if (Physics.Raycast(transform.position, DirectionToVector3(movementDirection), 1f)) stopped = true;
+                movementDirection = movementDirection.ReverseDirection();
+                if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
             }
         }
         else
@@ -204,7 +206,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
     }
 
     // TODO: move to an enum extension class
-    private Direction ReverseDirection(Direction dir)
+    /*private Direction ReverseDirection(Direction dir)
     {
         switch (dir)
         {
@@ -214,10 +216,10 @@ public class Die : MonoBehaviour, IMetronomeObserver
             case Direction.Left:    return Direction.Right;
             default:                return Direction.Up;
         }
-    }
+    }*/
 
     // TODO: move to an enum extension class
-    private Vector3 DirectionToVector3(Direction direction)
+    /*private Vector3 DirectionToVector3(Direction direction)
     {
         switch (direction)
         {
@@ -231,10 +233,10 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 return Vector3.left;
             default: return Vector3.zero;
         }
-    }
+    }*/
 
 
-    private void UpdateColliderPosition()
+    /*private void UpdateColliderPosition()
     {
         if (movementDirection == Direction.Up)
         {
@@ -252,7 +254,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         {
             obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z));
         }
-    }
+    }*/
 
     private IEnumerator RotateSmoothly(Vector3 rotationPoint, Vector3 rotationAxis, Vector3 newPosition)
     {

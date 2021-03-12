@@ -5,7 +5,8 @@ public enum Direction
     Up,
     Right,
     Down,
-    Left
+    Left,
+    None
 }
 
 static class DirectionExtensions
@@ -18,6 +19,7 @@ static class DirectionExtensions
             case Direction.Right: return Direction.Left;
             case Direction.Down: return Direction.Up;
             case Direction.Left: return Direction.Right;
+            case Direction.None: return Direction.None;
             default: return Direction.Up;
         }
     }
