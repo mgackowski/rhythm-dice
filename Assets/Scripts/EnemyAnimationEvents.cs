@@ -8,6 +8,12 @@ public class EnemyAnimationEvents : MonoBehaviour
 
     public void ResetPosition()
     {
+        StartCoroutine(ResetPositionOnNextFrame());
+    }
+
+    IEnumerator ResetPositionOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
         animationContainer.transform.localPosition = Vector3.zero;
     }
 }

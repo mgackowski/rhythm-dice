@@ -23,13 +23,13 @@ public class MovingPawnEnemy : Enemy
         Vector3 newPosition = transform.position;
         newPosition += path[currentPathStep].DirectionToVector3();
         transform.position = newPosition;
-        Physics.SyncTransforms();
         
-        animationContainer.transform.localPosition = Vector3.down;
+        animationContainer.transform.localPosition = Vector3.down; //object is mid-jump but its position moved forward, so move its container backward to maintain visual continuity
         if (path[currentPathStep] == Direction.None) animationContainer.transform.localPosition = Vector3.zero;
 
         currentPathStep = (currentPathStep + 1) % path.Length;
 
+        Physics.SyncTransforms();
     }
 
     public override void Notify(MetronomeTick tick)

@@ -39,7 +39,6 @@ public class Metronome : MonoBehaviour
             intervalPreBeat = interval * (1f - leadUpTime);
             intervalPostBeat = interval * leadUpTime;
             PreNotifyObservers();
-            //audioSource.Play();
             yield return new WaitForSeconds(intervalPreBeat);
             NotifyObservers();
             audioSource.Play();
