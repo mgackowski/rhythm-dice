@@ -19,8 +19,7 @@ static class DirectionExtensions
             case Direction.Right: return Direction.Left;
             case Direction.Down: return Direction.Up;
             case Direction.Left: return Direction.Right;
-            case Direction.None: return Direction.None;
-            default: return Direction.Up;
+            default: return Direction.None;
         }
     }
 

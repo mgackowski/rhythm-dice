@@ -6,7 +6,7 @@ public class MovingPawnEnemy : Enemy
 {
     public Direction[] path;
     public int currentPathStep = 0;
-    public GameObject animatedObject;
+    public GameObject animationContainer;
 
     private Animator animator;
 
@@ -24,28 +24,24 @@ public class MovingPawnEnemy : Enemy
         newPosition += path[currentPathStep].DirectionToVector3();
         transform.position = newPosition;
         Physics.SyncTransforms();
-
-        animatedObject.transform.position -= path[currentPathStep].DirectionToVector3();
+        
+        animationContainer.transform.localPosition = Vector3.down;
+        if (path[currentPathStep] == Direction.None) animationContainer.transform.localPosition = Vector3.zero;
 
         currentPathStep = (currentPathStep + 1) % path.Length;
-
-        //Debug.Log("Pawn - " + transform.position);
 
     }
 
     public override void Notify(MetronomeTick tick)
-    {
+    {   
         Move();
     }
 
 
     public override void PreNotify(MetronomeTick tick)
     {
-        //animator.StopPlayback();
 
         if (path.Length == 0) return;
-
-        animatedObject.transform.position = Vector3.zero;
 
         switch (path[currentPathStep])
         {
@@ -56,9 +52,8 @@ public class MovingPawnEnemy : Enemy
             default: break;
         }
 
-        //animator.StartPlayback();
-        if (path[currentPathStep] != Direction.None) animator.Play("JumpForward");
-    }
+        if (path[currentPathStep] != Direction.None) animator.SetTrigger("JumpForwardTrigger");
 
+    }
 
 }
