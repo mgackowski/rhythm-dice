@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
     private Metronome metronome;
     private AudioSource audioSource;
 
+    protected Animator animator;
+
     public virtual void PreNotify(MetronomeTick tick)
     {
         //Debug.Log("Menacing Pre-tick!");
@@ -24,7 +26,18 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
         metronome = GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>();
         metronome.AddObserver(this);
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponentInChildren<Animator>();
 
+    }
+
+    public void GetSquashed()
+    {
+        if (animator != null) animator.SetTrigger("GetSquashedTrigger");
+    }
+
+    public void Bounce()
+    {
+        if (animator != null) animator.SetTrigger("BounceTrigger");
     }
 
     private void OnDestroy()

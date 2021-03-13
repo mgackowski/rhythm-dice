@@ -8,14 +8,6 @@ public class MovingPawnEnemy : Enemy
     public int currentPathStep = 0;
     public GameObject animationContainer;
 
-    private Animator animator;
-
-    protected override void Start()
-    {
-        base.Start();
-        animator = GetComponentInChildren<Animator>();
-    }
-
     public void Move()
     {
         if (path.Length == 0) return;
