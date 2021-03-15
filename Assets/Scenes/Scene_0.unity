@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 18fabebb8a1c80d44a1139f586813600,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -20087,19 +20088,19 @@ Transform:
   - {fileID: 301652828}
   - {fileID: 237229322}
   - {fileID: 147315224}
-  - {fileID: 1982731200}
+  - {fileID: 378085385}
   - {fileID: 690983174}
-  - {fileID: 1892963809}
   - {fileID: 1515304942}
   - {fileID: 1328039895}
-  - {fileID: 378085385}
+  - {fileID: 13308610}
   - {fileID: 947386714}
   - {fileID: 1541118247}
-  - {fileID: 13308610}
+  - {fileID: 1892963809}
   - {fileID: 195090005}
   - {fileID: 1572917548}
   - {fileID: 122677447}
   - {fileID: 1107659506}
+  - {fileID: 1982731200}
   - {fileID: 237428115}
   - {fileID: 1014338245}
   - {fileID: 396431021}
