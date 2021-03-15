@@ -135,14 +135,15 @@ public class Die : MonoBehaviour, IMetronomeObserver
                     movementDirection = movementDirection.ReverseDirection();
                     audioController.PlaySound(DieAudioController.SoundEffect.Rebound);
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
+                    enemy.Bounce();
 
                     //UpdateColliderPosition(); no longer needed
                 }
                 else
                 {
                     audioController.PlaySound(DieAudioController.SoundEffect.DealDamage);
-                    //nextTile.GetComponent<Enemy>().GetSquashed();
-                    Destroy(nextTile); // bug: cuts off enemy sound too early
+                    enemy.GetComponent<Enemy>().GetSquashed();
+                    //Destroy(nextTile); // bug: cuts off enemy sound too early
                 }
             }
 

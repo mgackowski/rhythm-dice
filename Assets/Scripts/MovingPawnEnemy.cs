@@ -26,14 +26,14 @@ public class MovingPawnEnemy : Enemy
 
     public override void Notify(MetronomeTick tick)
     {   
-        Move();
+        if (alive) Move();
     }
 
 
     public override void PreNotify(MetronomeTick tick)
     {
 
-        if (path.Length == 0) return;
+        if (path.Length == 0 || !alive) return;
 
         switch (path[currentPathStep])
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IMetronomeObserver
 {
     public int attackPower = 0;
+    public bool alive = true;
     private Metronome metronome;
     private AudioSource audioSource;
 
@@ -32,12 +33,23 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
 
     public void GetSquashed()
     {
-        if (animator != null) animator.SetTrigger("GetSquashedTrigger");
+        if (animator != null & alive)
+        {
+            animator.SetTrigger("GetSquashedTrigger");
+            alive = false;
+
+            // Trying something different
+            //metronome.RemoveObserver(this);
+            //Rigidbody thisRigidbody = gameObject.AddComponent<Rigidbody>();
+            //thisRigidbody.AddExplosionForce(10f, transform.position + Vector3.forward, 2f);
+            //this.enabled = false;
+
+        }
     }
 
     public void Bounce()
     {
-        if (animator != null) animator.SetTrigger("BounceTrigger");
+        if (animator != null & alive) animator.SetTrigger("BounceTrigger");
     }
 
     private void OnDestroy()
@@ -47,10 +59,11 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
 
     public void playSound()
     {
-        if (audioSource != null)
+        if (audioSource != null && alive)
         {
             audioSource.Play();
         }
     }
+
 
 }
