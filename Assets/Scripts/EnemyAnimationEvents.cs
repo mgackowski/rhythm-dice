@@ -20,6 +20,6 @@ public class EnemyAnimationEvents : MonoBehaviour
     public void DestroyAnimationContainerParent()
     {
         //Tut, tut, not the best practice to depend on the parent...
-        Destroy(animationContainer.GetComponentInParent<Enemy>().gameObject);
+        //Destroy(animationContainer.GetComponentInParent<Enemy>().gameObject);
     }
 }
