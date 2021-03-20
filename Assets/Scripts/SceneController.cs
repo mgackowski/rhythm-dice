@@ -25,6 +25,7 @@ public class SceneController : MonoBehaviour
     private void Start()
     {
         //StartCoroutine(ChangeScene("TestScene",true,2f));
+        //Application.targetFrameRate = 60;
     }
 
     public IEnumerator ChangeScene(string nextScene, bool fade = true, float transitionDuration = 0.5f)
