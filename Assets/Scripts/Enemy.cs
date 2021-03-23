@@ -56,7 +56,8 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
 
     public void Bounce()
     {
-        if (animator != null & alive) animator.SetTrigger("BounceTrigger");
+        //TODO: Investigate if this could be causing animation errors
+        //if (animator != null & alive) animator.SetTrigger("BounceTrigger");
     }
 
     private void OnDestroy()
