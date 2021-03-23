@@ -61,6 +61,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPower: 1
   alive: 1
+  atkIndicatorPrefab: {fileID: 2989551904068041586, guid: 058fcd49ad5a19a4ca5d06695c0beb98,
+    type: 3}
 --- !u!82 &3307685910525349472
 AudioSource:
   m_ObjectHideFlags: 0
