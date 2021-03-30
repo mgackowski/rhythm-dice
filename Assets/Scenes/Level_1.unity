@@ -8567,9 +8567,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 309877618}
-  smoothTime: 0
+  smoothTime: 0.7
   targetZPosition: -34.43
   relativeYPosition: -17.4
+  defaultZoom: 13.9
+  zoomAmount: 0.5
+  zoomDuration: 0.5
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13095,9 +13098,11 @@ MonoBehaviour:
   initialDelaySeconds: 1
   interval: 0.5
   leadUpTime: 0.67
+  playTensionClip: 0
   beatClip:
   - {fileID: 8300000, guid: c2a2213e8102b97488013feeab34a5fc, type: 3}
   - {fileID: 8300000, guid: 77c7185a0bce26d47a650aa90af7403c, type: 3}
+  tensionClip: {fileID: 8300000, guid: 4ba210203b8a6f84d81343c38e249fe6, type: 3}
 --- !u!4 &1355780638
 Transform:
   m_ObjectHideFlags: 0

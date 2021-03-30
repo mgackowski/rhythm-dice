@@ -69,27 +69,6 @@ public class Die : MonoBehaviour, IMetronomeObserver
             Instantiate(movementIndicator, movementIndicatorPosition, Quaternion.Euler(-90f,0f,0f));
         }
 
-
-        //UpdateColliderPosition();
-
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            // Use raycasting instead
-            //nextTile = other.gameObject;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            // Use raycasting instead
-            //nextTile = null;
-        }
     }
 
     public void PreNotify(MetronomeTick tick)
@@ -100,15 +79,45 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     public void Notify(MetronomeTick tick)
     {
-        //Debug.Log("Tick!");
-
         ReactToObstacles();
+        if (ScanFutureNeighbours())
+        {
+            metronome.SetPlayTensionClip();
+            Camera.main.GetComponent<CameraTracker>().ZoomIn();
+        }
+        else
+        {
+            Camera.main.GetComponent<CameraTracker>().ZoomBack();
+        }
         if (!stopped) MoveOneStep();
+        //Physics.SyncTransforms();
+    }
+
+    public bool ScanFutureNeighbours()
+    {
+        RaycastHit hit;
+        Vector3 nextPosition = transform.position + movementDirection.DirectionToVector3();
+        if (Physics.Raycast(nextPosition, Direction.Up.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        if (Physics.Raycast(nextPosition, Direction.Right.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        if (Physics.Raycast(nextPosition, Direction.Down.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        if (Physics.Raycast(nextPosition, Direction.Left.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        return false;
     }
 
     public void ReactToObstacles()
     {
-        //Debug.Log("Die - " + transform.position);
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), out hit, 1f))
@@ -127,7 +136,6 @@ public class Die : MonoBehaviour, IMetronomeObserver
                     audioController.PlayChord(DieAudioController.SoundEffect.TakeDamage);
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
-                    //UpdateColliderPosition(); no longer needed
                     // Take damage
                 }
                 else if (enemy.attackPower == currentAttack)
@@ -137,8 +145,6 @@ public class Die : MonoBehaviour, IMetronomeObserver
                     audioController.PlayBeat();
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
                     enemy.Bounce();
-
-                    //UpdateColliderPosition(); no longer needed
                 }
                 else
                 {
