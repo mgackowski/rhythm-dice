@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
     public GameObject atkIndicatorPrefab;
 
     private Metronome metronome;
-    private AudioSource audioSource;
-
+    
+    protected  AudioSource audioSource;
     protected Animator animator;
 
     public virtual void PreNotify(MetronomeTick tick)

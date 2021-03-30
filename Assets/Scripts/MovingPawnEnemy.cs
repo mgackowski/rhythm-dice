@@ -15,6 +15,7 @@ public class MovingPawnEnemy : Enemy
         Vector3 newPosition = transform.position;
         newPosition += path[currentPathStep].DirectionToVector3();
         transform.position = newPosition;
+        //audioSource.Play(); too resource-intensive for everyone to play at once
         
         animationContainer.transform.localPosition = Vector3.down; //object is mid-jump but its position moved forward, so move its container backward to maintain visual continuity
         if (path[currentPathStep] == Direction.None) animationContainer.transform.localPosition = Vector3.zero;

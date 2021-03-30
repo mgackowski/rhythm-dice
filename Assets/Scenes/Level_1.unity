@@ -1903,7 +1903,7 @@ PrefabInstance:
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
@@ -2501,6 +2501,11 @@ PrefabInstance:
     - target: {fileID: 299188398318279228, guid: 2a5ced804d993914989c1cc8ebed353e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307685910525349472, guid: 2a5ced804d993914989c1cc8ebed353e,
+        type: 3}
+      propertyPath: Mute
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7053217453797817743, guid: 2a5ced804d993914989c1cc8ebed353e,
@@ -8496,7 +8501,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -14737,6 +14742,14 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 342300018}
   m_PrefabAsset: {fileID: 0}
+--- !u!81 &1491953326
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491953325}
+  m_Enabled: 1
 --- !u!82 &1491953332
 AudioSource:
   m_ObjectHideFlags: 0

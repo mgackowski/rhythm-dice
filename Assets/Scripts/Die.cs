@@ -134,6 +134,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 {
                     movementDirection = movementDirection.ReverseDirection();
                     audioController.PlayChord(DieAudioController.SoundEffect.TakeDamage);
+                    audioController.PlayBeat();
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
                     // Take damage
