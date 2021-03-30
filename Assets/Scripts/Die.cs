@@ -26,7 +26,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         dieModel = new DieModel();
         currentSide = dieModel.Sides[Side.Top];
         obstacleDetector = GetComponent<SphereCollider>();
-        audioController = GetComponent<DieAudioController>();
+        audioController = GetComponentInChildren<DieAudioController>();
     }
 
     void Update()
@@ -124,7 +124,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 if (enemy.attackPower > currentAttack)
                 {
                     movementDirection = movementDirection.ReverseDirection();
-                    audioController.PlaySound(DieAudioController.SoundEffect.TakeDamage);
+                    audioController.PlayChord(DieAudioController.SoundEffect.TakeDamage);
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
                     //UpdateColliderPosition(); no longer needed
@@ -133,7 +133,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 else if (enemy.attackPower == currentAttack)
                 {
                     movementDirection = movementDirection.ReverseDirection();
-                    audioController.PlaySound(DieAudioController.SoundEffect.Rebound);
+                    audioController.PlayChord(DieAudioController.SoundEffect.Rebound);
+                    audioController.PlayBeat();
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
                     enemy.Bounce();
 
@@ -141,7 +142,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 }
                 else
                 {
-                    audioController.PlaySound(DieAudioController.SoundEffect.DealDamage);
+                    audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
                     enemy.GetComponent<Enemy>().GetSquashed();
                     Destroy(nextTile); // bug: cuts off enemy sound too early
                 }
@@ -149,6 +150,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
             if (hit.collider.gameObject.CompareTag("Wall"))
             {
+                audioController.PlayBeat();
                 movementDirection = movementDirection.ReverseDirection();
                 if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
             }
@@ -203,7 +205,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
         StartCoroutine(RotateSmoothly(rotationPoint, rotationAxis, thisPosition));
 
-        audioController.PlayBeat(currentAttack);
+        audioController.PlayTone(currentAttack);
 
     }
 

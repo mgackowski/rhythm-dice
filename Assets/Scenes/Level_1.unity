@@ -1843,6 +1843,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1976664320151325381, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2696858739284051379, guid: 591fe8fe6a985b647a972b0cb16da25a,
+        type: 2}
     - target: {fileID: 3798667866958767680, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_Enabled
@@ -1892,12 +1898,12 @@ PrefabInstance:
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 78
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
@@ -1954,6 +1960,51 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 38fede052b547444a92ba840a5482ee0, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: e7b2cb02e167511428709a2168ae1c2a, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e7d2fb5034cbcb447ab0945a8fd6839d, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: af0c3db261bc8f94eab67199a9af3ced, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 662bf7766747d0743ab4d7500302307a, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3937ba02d1cc88b49ab38e16dccc0ee7, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: cabebf1fb8604914a9b1f304a795bf34, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[10]
+      value: 
+      objectReference: {fileID: 8300000, guid: 991ae6720aaaa434293e79d054e64fdd, type: 3}
+    - target: {fileID: 7588902806792886053, guid: a99a245ce0927694e9aff47ee6684cb8,
+        type: 3}
+      propertyPath: melodyClips.Array.data[12]
+      value: 
+      objectReference: {fileID: 8300000, guid: e8309dede6d06944aab94be0d0e5406d, type: 3}
     - target: {fileID: 8120828463068232192, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -13044,6 +13095,9 @@ MonoBehaviour:
   initialDelaySeconds: 1
   interval: 0.5
   leadUpTime: 0.67
+  beatClip:
+  - {fileID: 8300000, guid: c2a2213e8102b97488013feeab34a5fc, type: 3}
+  - {fileID: 8300000, guid: 77c7185a0bce26d47a650aa90af7403c, type: 3}
 --- !u!4 &1355780638
 Transform:
   m_ObjectHideFlags: 0
@@ -13067,8 +13121,9 @@ AudioSource:
   m_GameObject: {fileID: 1355780636}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cd0448188297ee042889dc73ad907323, type: 3}
+  OutputAudioMixerGroup: {fileID: 6058376562929040127, guid: 591fe8fe6a985b647a972b0cb16da25a,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: c2a2213e8102b97488013feeab34a5fc, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -8,9 +8,12 @@ public class Metronome : MonoBehaviour
     public float interval = 1f;
     public float leadUpTime = 0.33f;
 
+    public AudioClip[] beatClip;
+
     private List<IMetronomeObserver> observers;
     private List<IMetronomeObserver> lateObservers;
     private AudioSource audioSource;
+    private int beatNumber = 0;
 
 
     void Awake()
@@ -41,7 +44,9 @@ public class Metronome : MonoBehaviour
             PreNotifyObservers();
             yield return new WaitForSeconds(intervalPreBeat);
             NotifyObservers();
+            audioSource.clip = beatClip[beatNumber];
             audioSource.Play();
+            beatNumber = (beatNumber + 1) % beatClip.Length;
             yield return new WaitForSeconds(intervalPostBeat);
         }
     }

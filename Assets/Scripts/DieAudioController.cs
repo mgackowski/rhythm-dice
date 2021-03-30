@@ -6,6 +6,7 @@ public class DieAudioController : MonoBehaviour
 {
     public AudioSource melodyAudioSource;
     public AudioSource soundAudioSource;
+    public AudioSource beatAudioSource;
 
     public AudioClip[] melodyClips;
     public AudioClip bounceClip;
@@ -17,12 +18,17 @@ public class DieAudioController : MonoBehaviour
         Rebound, DealDamage, TakeDamage
     }
 
-    public void PlayBeat(int value)
+    public void PlayBeat()
+    {
+        beatAudioSource.Play();
+    }
+    
+    public void PlayTone(int value)
     {
         melodyAudioSource.clip = melodyClips[value];
         melodyAudioSource.Play();
     }
-    public void PlaySound(SoundEffect sound)
+    public void PlayChord(SoundEffect sound)
     {
         AudioClip clipToPlay = null;
         switch (sound)
