@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 8120828463068232192}
   - component: {fileID: 8289241556663341258}
   - component: {fileID: 5194957738669764449}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Die
   m_TagString: Die
   m_Icon: {fileID: 0}

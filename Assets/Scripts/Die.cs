@@ -66,7 +66,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
             movementIndicatorPosition.x = Mathf.Round(movementIndicatorPosition.x);
             movementIndicatorPosition.y = Mathf.Round(movementIndicatorPosition.y);
 
-            Instantiate(movementIndicator, movementIndicatorPosition, Quaternion.Euler(-90f,0f,0f));
+            Instantiate(movementIndicator, movementIndicatorPosition, Quaternion.Euler(-90f, 0f, 0f));
         }
 
     }
@@ -120,7 +120,12 @@ public class Die : MonoBehaviour, IMetronomeObserver
     {
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), out hit, 1f))
+
+        // TODO: Refactor this condition
+        if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), out hit, 1f)
+            || (Physics.Raycast(transform.position + movementDirection.DirectionToVector3(), movementDirection.ReverseDirection().DirectionToVector3(), out hit, 1f))
+            && hit.collider.gameObject.GetComponent<MovingPawnEnemy>() != null
+            && hit.collider.gameObject.GetComponent<MovingPawnEnemy>().lastDirection == movementDirection.ReverseDirection()) // reverse raycast to check for enemies that swap places with you
         {
             nextTile = hit.collider.gameObject;
 

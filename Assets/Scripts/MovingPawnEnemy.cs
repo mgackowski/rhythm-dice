@@ -7,11 +7,13 @@ public class MovingPawnEnemy : Enemy
     public Direction[] path;
     public int currentPathStep = 0;
     public GameObject animationContainer;
+    public Direction lastDirection { get; private set; }
 
     public void Move()
     {
         if (path.Length == 0) return;
 
+        lastDirection = path[currentPathStep];
         Vector3 newPosition = transform.position;
         newPosition += path[currentPathStep].DirectionToVector3();
         transform.position = newPosition;
@@ -47,6 +49,11 @@ public class MovingPawnEnemy : Enemy
 
         if (path[currentPathStep] != Direction.None) animator.SetTrigger("JumpForwardTrigger");
 
+    }
+
+    private static int Mod(int a, int b)
+    {
+        return (a % b + b) % b;
     }
 
 }
