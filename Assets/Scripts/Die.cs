@@ -156,7 +156,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 {
                     audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
                     enemy.GetComponent<Enemy>().GetSquashed();
-                    Destroy(nextTile); // bug: cuts off enemy sound too early
+                    nextTile.SetActive(false); // bug: cuts off enemy sound too early
                 }
             }
 

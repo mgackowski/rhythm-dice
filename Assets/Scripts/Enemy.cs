@@ -31,10 +31,10 @@ public class Enemy : MonoBehaviour, IMetronomeObserver
         audioSource = GetComponent<AudioSource>();
         animator = GetComponentInChildren<Animator>();
 
-        Vector3 atkIndicatorPosition = transform.position;
-        atkIndicatorPosition.z -= 2f;
-        GameObject atkIndicator = Instantiate(atkIndicatorPrefab,atkIndicatorPosition,Quaternion.Euler(-90f,0f,0f),transform);
-        atkIndicator.GetComponent<TextMesh>().text = attackPower + "";
+        //Vector3 atkIndicatorPosition = transform.position;
+        //atkIndicatorPosition.z -= 2f;
+        //GameObject atkIndicator = Instantiate(atkIndicatorPrefab,atkIndicatorPosition,Quaternion.Euler(-90f,0f,0f),transform);
+        //atkIndicator.GetComponent<TextMesh>().text = attackPower + "";
 
     }
 

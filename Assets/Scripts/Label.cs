@@ -7,6 +7,7 @@ public class Label : MonoBehaviour
     public Color labelColour;
     public int valueDisplayed;
     public float movementDuration = 0.1f;
+    public Transform trackedObject;
 
     public MeshRenderer labelRenderer;
     public Animator animator;
@@ -38,7 +39,22 @@ public class Label : MonoBehaviour
         animator.SetTrigger("Emphasize");
     }
 
-    public void MoveTo(Vector3 newPosition)
+    private void Update()
+    {
+        if (trackedObject.gameObject == null || !trackedObject.gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+
+        Vector3 newPosition = trackedObject.position;
+        newPosition.z -= 2f; //TODO: Magic number
+        float speed = 10f; // TODO: Magic number
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * speed);
+
+        
+    }
+
+    /*public void MoveTo(Vector3 newPosition)
     {
         newPosition.z = transform.position.z; // ignore changes to height
         StartCoroutine(_Move(newPosition));
@@ -54,6 +70,6 @@ public class Label : MonoBehaviour
             yield return null;
             elapsedTime += Time.deltaTime;
         }
-    }
+    }*/
 
 }
