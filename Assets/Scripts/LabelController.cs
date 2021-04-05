@@ -79,7 +79,7 @@ public class LabelController : MonoBehaviour
         {
             GameObject label = labels[other.gameObject].gameObject;
             label.GetComponent<Label>().Hide();
-            label.SetActive(false);     //TODO: Delay this
+            //label.SetActive(false);     //TODO: Delay this
            
         }
     }

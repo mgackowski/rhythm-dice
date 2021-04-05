@@ -13,6 +13,7 @@ public class Label : MonoBehaviour
     public Animator animator;
 
     private TextMesh textMesh;
+    private bool disabled = false;
 
     void Start()
     {
@@ -41,9 +42,11 @@ public class Label : MonoBehaviour
 
     private void Update()
     {
-        if (trackedObject.gameObject == null || !trackedObject.gameObject.activeSelf)
+        if (!disabled && (trackedObject.gameObject == null || !trackedObject.gameObject.activeSelf))
         {
-            gameObject.SetActive(false);
+            disabled = true;
+            animator.SetTrigger("Hide");
+            //gameObject.SetActive(false);
         }
 
         Vector3 newPosition = trackedObject.position;
@@ -52,6 +55,11 @@ public class Label : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * speed);
 
         
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 
     /*public void MoveTo(Vector3 newPosition)

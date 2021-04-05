@@ -139,6 +139,7 @@ MonoBehaviour:
   labelColour: {r: 1, g: 0, b: 0, a: 0.14901961}
   valueDisplayed: 0
   movementDuration: 0.1
+  trackedObject: {fileID: 0}
   labelRenderer: {fileID: 930446135214266050}
   animator: {fileID: 930446136992107584}
 --- !u!1 &930446136992107590
@@ -151,6 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 930446136992107585}
   - component: {fileID: 930446136992107584}
+  - component: {fileID: 3122179038170352610}
   m_Layer: 5
   m_Name: AnimationContainer
   m_TagString: Untagged
@@ -193,6 +195,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3122179038170352610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930446136992107590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d427b6604e7c3e548bb68c8eb512b453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 930446136323094092}
 --- !u!1 &930446137034425925
 GameObject:
   m_ObjectHideFlags: 0
