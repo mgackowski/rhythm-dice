@@ -25,6 +25,7 @@ public class LabelController : MonoBehaviour
             Label label = newLabel.GetComponent<Label>();
             label.valueDisplayed = enemy.GetComponent<Enemy>().attackPower;
             label.trackedObject = enemy.transform;
+            label.die = die.transform;
             // TODO: set colour
             newLabel.SetActive(false);
             labels.Add(enemy, label);

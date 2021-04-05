@@ -1903,12 +1903,12 @@ PrefabInstance:
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 56
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
@@ -10749,6 +10749,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_Wordtile_6 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880701274628531821, guid: ca34365e665195749991f41096304897,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880701274628531821, guid: ca34365e665195749991f41096304897,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880701274628531821, guid: ca34365e665195749991f41096304897,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca34365e665195749991f41096304897, type: 3}
@@ -42026,7 +42041,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996107519}
   m_LocalRotation: {x: -0, y: -0, z: 0.99541336, w: 0.09566735}
-  m_LocalPosition: {x: 28.27, y: 56.83, z: 0.61}
+  m_LocalPosition: {x: 28.27, y: 56.83, z: 0.599}
   m_LocalScale: {x: 3.5, y: 2, z: 0.030968102}
   m_Children: []
   m_Father: {fileID: 1266077831}
