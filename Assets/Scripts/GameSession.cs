@@ -50,7 +50,7 @@ public class GameSession : MonoBehaviour
     public void SetUpLevel()
     {
         health = defaultHealth;
-        //uiController = canvas.GetComponentInChildren<UIController>();
+        if (!tutorialCompleted) GameObject.FindGameObjectWithTag("Die").transform.position = Vector3.zero;
     }
 
     public void TakeDamage(int amount)
