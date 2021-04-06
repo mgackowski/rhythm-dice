@@ -1,14 +1,25 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
     public static GameSession instance;
+
+    //public GameObject levelUIprefab;
+
+    private UIController uiController;
+    private SceneController sceneController;
+
+    public int defaultHealth = 10;
+    public int health = 10;
 
     public string playerName  = "Player";
     // store current dice collection
     // store current game piece collection
     public int levelsCompleted = 0;
     public int polybagTokens = 0;
+
+    public bool tutorialCompleted = false;
     public bool boxObtained = false;
 
     private void Awake()
@@ -24,6 +35,39 @@ public class GameSession : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    private void Start()
+    {
+        SceneManager.activeSceneChanged += delegate { SetUpLevel(); };
+    }
+
+    //private void Update()
+    //{
+    //    
+    //}
+
+    public void SetUpLevel()
+    {
+        health = defaultHealth;
+        //uiController = canvas.GetComponentInChildren<UIController>();
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health = Mathf.Max(health - amount, 0);
+        if(health <= 0)
+        {
+            GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
+            RestartLevel();
+            
+        }
+
+    }
+
+    public void RestartLevel()
+    {
+        StartCoroutine(GetComponent<SceneController>().ChangeScene(SceneManager.GetActiveScene().name, true, 1f, 1f));
     }
 
     public void LoadGame() {

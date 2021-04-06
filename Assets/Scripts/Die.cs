@@ -142,7 +142,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                     audioController.PlayBeat();
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
-                    // Take damage
+                    GameSession.instance.TakeDamage(enemy.attackPower - currentAttack);
                 }
                 else if (enemy.attackPower == currentAttack)
                 {
@@ -220,57 +220,6 @@ public class Die : MonoBehaviour, IMetronomeObserver
         audioController.PlayTone(currentAttack);
 
     }
-
-    // TODO: move to an enum extension class
-    /*private Direction ReverseDirection(Direction dir)
-    {
-        switch (dir)
-        {
-            case Direction.Up:      return Direction.Down;
-            case Direction.Right:   return Direction.Left;
-            case Direction.Down:    return Direction.Up;
-            case Direction.Left:    return Direction.Right;
-            default:                return Direction.Up;
-        }
-    }*/
-
-    // TODO: move to an enum extension class
-    /*private Vector3 DirectionToVector3(Direction direction)
-    {
-        switch (direction)
-        {
-            case Direction.Up:
-                return Vector3.up;
-            case Direction.Right:
-                return Vector3.right;
-            case Direction.Down:
-                return Vector3.down;
-            case Direction.Left:
-                return Vector3.left;
-            default: return Vector3.zero;
-        }
-    }*/
-
-
-    /*private void UpdateColliderPosition()
-    {
-        if (movementDirection == Direction.Up)
-        {
-            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
-        }
-        if (movementDirection == Direction.Down)
-        {
-            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z));
-        }
-        if (movementDirection == Direction.Left)
-        {
-            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z));
-        }
-        if (movementDirection == Direction.Right)
-        {
-            obstacleDetector.center = transform.InverseTransformPoint(new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z));
-        }
-    }*/
 
     private IEnumerator RotateSmoothly(Vector3 rotationPoint, Vector3 rotationAxis, Vector3 newPosition)
     {

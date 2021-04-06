@@ -28,8 +28,9 @@ public class SceneController : MonoBehaviour
         //Application.targetFrameRate = 60;
     }
 
-    public IEnumerator ChangeScene(string nextScene, bool fade = true, float transitionDuration = 0.5f)
+    public IEnumerator ChangeScene(string nextScene, bool fade = true, float transitionDuration = 0.5f, float initialWait = 0f)
     {
+        yield return new WaitForSeconds(initialWait);
         if(fade)
         {
             FadeOut(transitionDuration / 2);
@@ -38,11 +39,15 @@ public class SceneController : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(nextScene);
         if(fade)
         {
-            while(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != nextScene)
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += delegate
             {
-                yield return null;
-            }
-            yield return StartCoroutine(Fade((transitionDuration / 2), 1f, 0f));
+                StartCoroutine(Fade((transitionDuration / 2), 1f, 0f));
+            };
+            //while (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != nextScene)
+            //{
+            //    yield return null;
+            //}
+            //yield return StartCoroutine(Fade((transitionDuration / 2), 1f, 0f));
         }
     }
 
