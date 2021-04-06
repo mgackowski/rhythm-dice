@@ -10653,6 +10653,8 @@ MonoBehaviour:
     type: 3}
   dieObject: {fileID: 1491953325}
   labelsParent: {fileID: 996652679}
+  enemyColour: {r: 1, g: 0, b: 0, a: 0.14901961}
+  playerColour: {r: 0, g: 0.5416806, b: 1, a: 0.14901961}
 --- !u!4 &1135886052
 Transform:
   m_ObjectHideFlags: 0

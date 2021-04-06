@@ -8,8 +8,15 @@ public class LabelController : MonoBehaviour
     public GameObject dieObject;
     public GameObject labelsParent;
 
+    public Color enemyColour;
+    public Color playerColour;
+
     private Die die;
     private Dictionary<GameObject, Label> labels; // K: tracked object, V: label component
+    public List<Label> activeLabels;
+
+    private Label dieLabel;
+    private GameObject dieLabelGameObject;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +24,7 @@ public class LabelController : MonoBehaviour
         die = dieObject.GetComponent<Die>();
 
         labels = new Dictionary<GameObject, Label>();
+        activeLabels = new List<Label>();
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(GameObject enemy in enemies)
@@ -25,15 +33,22 @@ public class LabelController : MonoBehaviour
             Label label = newLabel.GetComponent<Label>();
             label.valueDisplayed = enemy.GetComponent<Enemy>().attackPower;
             label.trackedObject = enemy.transform;
-            label.die = die.transform;
-            // TODO: set colour
+            label.otherObject = die.transform;
+            label.labelColour = enemyColour;
             newLabel.SetActive(false);
             labels.Add(enemy, label);
         }
 
+        dieLabelGameObject = Instantiate(labelPrefab, labelsParent.transform, true);
+        dieLabel = dieLabelGameObject.GetComponent<Label>();
+        dieLabel.labelColour = playerColour;
+        dieLabel.trackedObject = die.transform;
+        dieLabel.otherObject = transform; // Temporary
+        dieLabel.gameObject.SetActive(false);
+        //dieLabel.Show();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         float colliderRotation = 0f;
@@ -54,10 +69,33 @@ public class LabelController : MonoBehaviour
         transform.position = dieObject.transform.position;
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, colliderRotation);
 
-        //foreach (KeyValuePair<Transform, Label> entry in labels)
-        //{
-        //    
-        //}
+
+        dieLabel.valueDisplayed = die.currentAttack;
+
+
+        bool emphasizeDieLabel = false;
+        //TODO: Iterate over active labels; should be triggered by some event instead
+        List<Label> destroyedLabels = new List<Label>(activeLabels);
+        foreach (Label label in destroyedLabels)
+        {
+            if (!label.gameObject.activeSelf) activeLabels.Remove(label);
+        }
+        foreach (Label label in activeLabels)
+        {
+            if (label.emphasized && !label.disabled) emphasizeDieLabel = true;
+            dieLabel.otherObject = label.trackedObject.transform;
+        }
+        if(emphasizeDieLabel)
+        {
+            dieLabel.gameObject.SetActive(true);
+            //dieLabel.Show();   
+        }
+        else
+        {
+            dieLabel.otherObject = transform;
+            //dieLabel.gameObject.SetActive(false); // Should be controlled by Hide animation trigger instead
+            dieLabel.Hide();
+        }
 
 
     }
@@ -69,6 +107,7 @@ public class LabelController : MonoBehaviour
             //Refactor
             GameObject label = labels[other.gameObject].gameObject;
             label.SetActive(true);
+            activeLabels.Add(label.GetComponent<Label>());
             label.transform.position = other.gameObject.transform.position;
             label.GetComponent<Label>().Show();
         }
@@ -78,9 +117,10 @@ public class LabelController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            GameObject label = labels[other.gameObject].gameObject;
-            label.GetComponent<Label>().Hide();
-            //label.SetActive(false);     //TODO: Delay this
+            Label label = labels[other.gameObject];
+            label.Hide();
+            activeLabels.Remove(label);
+            
            
         }
     }
