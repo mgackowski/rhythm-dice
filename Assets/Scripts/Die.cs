@@ -26,7 +26,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         dieModel = new DieModel();
         currentSide = dieModel.Sides[Side.Top];
         obstacleDetector = GetComponent<SphereCollider>();
-        audioController = GetComponent<DieAudioController>();
+        audioController = GetComponentInChildren<DieAudioController>();
     }
 
     void Update()
@@ -66,30 +66,9 @@ public class Die : MonoBehaviour, IMetronomeObserver
             movementIndicatorPosition.x = Mathf.Round(movementIndicatorPosition.x);
             movementIndicatorPosition.y = Mathf.Round(movementIndicatorPosition.y);
 
-            Instantiate(movementIndicator, movementIndicatorPosition, Quaternion.Euler(-90f,0f,0f));
+            Instantiate(movementIndicator, movementIndicatorPosition, Quaternion.Euler(-90f, 0f, 0f));
         }
 
-
-        //UpdateColliderPosition();
-
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            // Use raycasting instead
-            //nextTile = other.gameObject;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            // Use raycasting instead
-            //nextTile = null;
-        }
     }
 
     public void PreNotify(MetronomeTick tick)
@@ -100,18 +79,53 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     public void Notify(MetronomeTick tick)
     {
-        //Debug.Log("Tick!");
-
         ReactToObstacles();
+        if (ScanFutureNeighbours())
+        {
+            metronome.SetPlayTensionClip();
+            Camera.main.GetComponent<CameraTracker>().ZoomIn();
+        }
+        else
+        {
+            Camera.main.GetComponent<CameraTracker>().ZoomBack();
+        }
         if (!stopped) MoveOneStep();
+        //Physics.SyncTransforms();
+    }
+
+    public bool ScanFutureNeighbours()
+    {
+        RaycastHit hit;
+        Vector3 nextPosition = transform.position + movementDirection.DirectionToVector3();
+        if (Physics.Raycast(nextPosition, Direction.Up.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        if (Physics.Raycast(nextPosition, Direction.Right.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        if (Physics.Raycast(nextPosition, Direction.Down.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        if (Physics.Raycast(nextPosition, Direction.Left.DirectionToVector3(), out hit, 1f))
+        {
+            if (hit.collider.gameObject.CompareTag("Enemy")) return true;
+        }
+        return false;
     }
 
     public void ReactToObstacles()
     {
-        //Debug.Log("Die - " + transform.position);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), out hit, 1f))
+
+        // TODO: Refactor this condition
+        if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), out hit, 1f)
+            || (Physics.Raycast(transform.position + movementDirection.DirectionToVector3(), movementDirection.ReverseDirection().DirectionToVector3(), out hit, 1f))
+            && hit.collider.gameObject.GetComponent<MovingPawnEnemy>() != null
+            && hit.collider.gameObject.GetComponent<MovingPawnEnemy>().lastDirection == movementDirection.ReverseDirection()) // reverse raycast to check for enemies that swap places with you
         {
             nextTile = hit.collider.gameObject;
 
@@ -124,31 +138,31 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 if (enemy.attackPower > currentAttack)
                 {
                     movementDirection = movementDirection.ReverseDirection();
-                    audioController.PlaySound(DieAudioController.SoundEffect.TakeDamage);
+                    audioController.PlayChord(DieAudioController.SoundEffect.TakeDamage);
+                    audioController.PlayBeat();
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
 
-                    //UpdateColliderPosition(); no longer needed
                     // Take damage
                 }
                 else if (enemy.attackPower == currentAttack)
                 {
                     movementDirection = movementDirection.ReverseDirection();
-                    audioController.PlaySound(DieAudioController.SoundEffect.Rebound);
+                    audioController.PlayChord(DieAudioController.SoundEffect.Rebound);
+                    audioController.PlayBeat();
                     if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
                     enemy.Bounce();
-
-                    //UpdateColliderPosition(); no longer needed
                 }
                 else
                 {
-                    audioController.PlaySound(DieAudioController.SoundEffect.DealDamage);
+                    audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
                     enemy.GetComponent<Enemy>().GetSquashed();
-                    Destroy(nextTile); // bug: cuts off enemy sound too early
+                    nextTile.SetActive(false); // bug: cuts off enemy sound too early
                 }
             }
 
             if (hit.collider.gameObject.CompareTag("Wall"))
             {
+                audioController.PlayBeat();
                 movementDirection = movementDirection.ReverseDirection();
                 if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
             }
@@ -203,7 +217,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
         StartCoroutine(RotateSmoothly(rotationPoint, rotationAxis, thisPosition));
 
-        audioController.PlayBeat(currentAttack);
+        audioController.PlayTone(currentAttack);
 
     }
 

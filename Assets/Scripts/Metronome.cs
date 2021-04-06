@@ -7,10 +7,15 @@ public class Metronome : MonoBehaviour
     public float initialDelaySeconds = 1f;
     public float interval = 1f;
     public float leadUpTime = 0.33f;
+    public bool playTensionClip = false;
+
+    public AudioClip[] beatClip;
+    public AudioClip tensionClip;
 
     private List<IMetronomeObserver> observers;
     private List<IMetronomeObserver> lateObservers;
     private AudioSource audioSource;
+    private int beatNumber = 0;
 
 
     void Awake()
@@ -29,6 +34,12 @@ public class Metronome : MonoBehaviour
         
     }
 
+    /* Override next beat with a different audio clip set as the 'tensionClip' */
+    public void SetPlayTensionClip()
+    {
+        playTensionClip = true;
+    }
+
     IEnumerator Beat(float initialDelaySeconds)
     {
         float intervalPreBeat;
@@ -41,7 +52,16 @@ public class Metronome : MonoBehaviour
             PreNotifyObservers();
             yield return new WaitForSeconds(intervalPreBeat);
             NotifyObservers();
+            if(playTensionClip) {
+                audioSource.clip = tensionClip;
+                playTensionClip = false;
+            }
+            else
+            {
+                audioSource.clip = beatClip[beatNumber];
+            }
             audioSource.Play();
+            beatNumber = (beatNumber + 1) % beatClip.Length;
             yield return new WaitForSeconds(intervalPostBeat);
         }
     }

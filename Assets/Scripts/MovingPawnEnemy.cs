@@ -7,14 +7,17 @@ public class MovingPawnEnemy : Enemy
     public Direction[] path;
     public int currentPathStep = 0;
     public GameObject animationContainer;
+    public Direction lastDirection { get; private set; }
 
     public void Move()
     {
         if (path.Length == 0) return;
 
+        lastDirection = path[currentPathStep];
         Vector3 newPosition = transform.position;
         newPosition += path[currentPathStep].DirectionToVector3();
         transform.position = newPosition;
+        //audioSource.Play(); too resource-intensive for everyone to play at once
         
         animationContainer.transform.localPosition = Vector3.down; //object is mid-jump but its position moved forward, so move its container backward to maintain visual continuity
         if (path[currentPathStep] == Direction.None) animationContainer.transform.localPosition = Vector3.zero;
@@ -46,6 +49,11 @@ public class MovingPawnEnemy : Enemy
 
         if (path[currentPathStep] != Direction.None) animator.SetTrigger("JumpForwardTrigger");
 
+    }
+
+    private static int Mod(int a, int b)
+    {
+        return (a % b + b) % b;
     }
 
 }

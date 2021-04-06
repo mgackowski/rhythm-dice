@@ -22,7 +22,7 @@ public class LevelBuilder : MonoBehaviour
                 TileBase tile = tiles[x + y * bounds.size.x];
                 if (tile != null && tile.name == wallTileName)
                 {
-                    Debug.Log("Wall found");
+                    //Debug.Log("Wall found");
                     //TODO: Make this more elegant
                     Instantiate(wallPrefab, new Vector3(x-28,y-10,0), Quaternion.identity, transform);
                 }
