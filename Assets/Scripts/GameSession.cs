@@ -49,7 +49,7 @@ public class GameSession : MonoBehaviour
 
     public void SetUpLevel()
     {
-        health = defaultHealth;
+        Heal();
         if (!tutorialCompleted) GameObject.FindGameObjectWithTag("Die").transform.position = Vector3.zero;
     }
 
@@ -63,6 +63,11 @@ public class GameSession : MonoBehaviour
             
         }
 
+    }
+
+    public void Heal()
+    {
+        health = defaultHealth;
     }
 
     public void RestartLevel()

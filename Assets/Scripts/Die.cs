@@ -166,6 +166,14 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 movementDirection = movementDirection.ReverseDirection();
                 if (Physics.Raycast(transform.position, movementDirection.DirectionToVector3(), 1f)) stopped = true;
             }
+
+            if (hit.collider.gameObject.CompareTag("HealthPickup"))
+            {
+                audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
+                GameSession.instance.Heal();
+                hit.collider.gameObject.SetActive(false);
+
+            }
         }
         else
         {

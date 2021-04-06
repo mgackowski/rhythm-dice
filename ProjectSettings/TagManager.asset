@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Metronome
   - FadeScreen
+  - HealthPickup
   layers:
   - Default
   - TransparentFX
