@@ -11,7 +11,12 @@ public class GameSession : MonoBehaviour
     private SceneController sceneController;
 
     public int defaultHealth = 10;
+    public int maxDoubleDuration = 16;
+
     public int health = 10;
+    public bool doublePowerup = false;
+    public int doublePowerRemaining;
+    private GameObject doublePickupUsed;
 
     public string playerName  = "Player";
     // store current dice collection
@@ -42,10 +47,25 @@ public class GameSession : MonoBehaviour
         SceneManager.activeSceneChanged += delegate { SetUpLevel(); };
     }
 
-    //private void Update()
-    //{
-    //    
-    //}
+    public void ActivateDoublePowerup(GameObject pickupUsed)
+    {
+        doublePowerup = true;
+        doublePowerRemaining = maxDoubleDuration;
+        doublePickupUsed = pickupUsed;
+        doublePickupUsed.SetActive(false);
+    }
+
+    public void DecreaseDoublePowerupTimer()
+    {
+        doublePowerRemaining--;
+        if (doublePowerRemaining <= 0)
+        {
+            doublePowerup = false;
+            doublePowerRemaining = maxDoubleDuration;
+            doublePickupUsed.SetActive(true);
+            doublePickupUsed = null;
+        }
+    }
 
     public void SetUpLevel()
     {
@@ -60,9 +80,7 @@ public class GameSession : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
             RestartLevel();
-            
         }
-
     }
 
     public void Heal()

@@ -44,8 +44,8 @@ public class LabelController : MonoBehaviour
         dieLabel.labelColour = playerColour;
         dieLabel.trackedObject = die.transform;
         dieLabel.otherObject = transform; // Temporary
-        dieLabel.gameObject.SetActive(false);
-        //dieLabel.Show();
+        //dieLabel.gameObject.SetActive(false);
+        dieLabel.Show();
 
     }
 
@@ -73,7 +73,7 @@ public class LabelController : MonoBehaviour
         dieLabel.valueDisplayed = die.currentAttack;
 
 
-        bool emphasizeDieLabel = false;
+        /*bool emphasizeDieLabel = false;
         //TODO: Iterate over active labels; should be triggered by some event instead
         List<Label> destroyedLabels = new List<Label>(activeLabels);
         foreach (Label label in destroyedLabels)
@@ -95,7 +95,7 @@ public class LabelController : MonoBehaviour
             dieLabel.otherObject = transform;
             //dieLabel.gameObject.SetActive(false); // Should be controlled by Hide animation trigger instead
             dieLabel.Hide();
-        }
+        }*/
 
 
     }

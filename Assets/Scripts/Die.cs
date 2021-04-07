@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Die : MonoBehaviour, IMetronomeObserver
@@ -13,6 +12,11 @@ public class Die : MonoBehaviour, IMetronomeObserver
     public Direction topFaceOrientation = Direction.Up;
     public Direction movementDirection = Direction.Up;
     public bool stopped = false;
+
+    //public bool doubled = false;
+    //public int maxDoubleDuration = 16;
+    //private int doublePowerRemaining;
+    //private GameObject doublePickupUsed;
 
     private DieModel dieModel;
     private DieSide currentSide;
@@ -174,6 +178,12 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 hit.collider.gameObject.SetActive(false);
 
             }
+
+            if (hit.collider.gameObject.CompareTag("DoublePickup"))
+            {
+                audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
+                GameSession.instance.ActivateDoublePowerup(hit.collider.gameObject);
+            }
         }
         else
         {
@@ -189,7 +199,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         topFaceOrientation = movement.NewOrientation;
         currentSide = movement.NewSide;
         currentAttack = currentSide.Value;
-
+        if (GameSession.instance.doublePowerup) currentAttack *= 2;
 
         // Physically move the die
         Vector3 thisPosition = transform.position;
@@ -226,6 +236,8 @@ public class Die : MonoBehaviour, IMetronomeObserver
         StartCoroutine(RotateSmoothly(rotationPoint, rotationAxis, thisPosition));
 
         audioController.PlayTone(currentAttack);
+
+        if (GameSession.instance.doublePowerup) GameSession.instance.DecreaseDoublePowerupTimer();
 
     }
 

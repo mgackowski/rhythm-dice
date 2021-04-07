@@ -10,6 +10,7 @@ TagManager:
   - Metronome
   - FadeScreen
   - HealthPickup
+  - DoublePickup
   layers:
   - Default
   - TransparentFX
