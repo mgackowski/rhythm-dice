@@ -842,6 +842,8 @@ MonoBehaviour:
   bounceClip: {fileID: 8300000, guid: da28d71ea7b358e41a01a3324db6ebfe, type: 3}
   damageClip: {fileID: 8300000, guid: 6dbf359d8ef86154a83e4ab29c8949ee, type: 3}
   hitClip: {fileID: 8300000, guid: 7939a9ca69186ed4fb02d5482e24ae54, type: 3}
+  healthPowerupClip: {fileID: 8300000, guid: 7939a9ca69186ed4fb02d5482e24ae54, type: 3}
+  doublePowerupClip: {fileID: 8300000, guid: 7939a9ca69186ed4fb02d5482e24ae54, type: 3}
 --- !u!1001 &1318374446265537433
 PrefabInstance:
   m_ObjectHideFlags: 0

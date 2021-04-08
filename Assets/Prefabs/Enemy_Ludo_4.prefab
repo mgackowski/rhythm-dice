@@ -221,6 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f516010cfef5e049bb709b12c912cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seriesNumber: 1
+  numberInSeries: 4
   attackPower: 4
   alive: 1
   atkIndicatorPrefab: {fileID: 2989551904068041586, guid: 058fcd49ad5a19a4ca5d06695c0beb98,

@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour, IMetronomeObserver
 {
+    public int seriesNumber;
+    public int numberInSeries;
+
     public int attackPower = 0;
     public bool alive = true;
     public GameObject atkIndicatorPrefab;

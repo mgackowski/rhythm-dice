@@ -5,6 +5,7 @@ using UnityEngine;
 public class LabelController : MonoBehaviour
 {
     public GameObject labelPrefab;
+    public GameObject playerLabelPrefab;
     public GameObject dieObject;
     public GameObject labelsParent;
 
@@ -15,13 +16,19 @@ public class LabelController : MonoBehaviour
     private Dictionary<GameObject, Label> labels; // K: tracked object, V: label component
     public List<Label> activeLabels;
 
-    private Label dieLabel;
-    private GameObject dieLabelGameObject;
+    //private GameObject dieLabelObject;
+    private PlayerLabel dieLabel;
+    //private bool dieLabelEmphasized = false;
 
     // Start is called before the first frame update
     void Start()
     {
         die = dieObject.GetComponent<Die>();
+
+        GameObject playerLabelObject = Instantiate(playerLabelPrefab, labelsParent.transform, true);
+        dieLabel = playerLabelObject.GetComponent<PlayerLabel>();
+        dieLabel.trackedObject = die.transform;
+        dieLabel.labelColour = playerColour;
 
         labels = new Dictionary<GameObject, Label>();
         activeLabels = new List<Label>();
@@ -35,17 +42,16 @@ public class LabelController : MonoBehaviour
             label.trackedObject = enemy.transform;
             label.otherObject = die.transform;
             label.labelColour = enemyColour;
+            label.playerLabel = dieLabel;
             newLabel.SetActive(false);
             labels.Add(enemy, label);
         }
 
-        dieLabelGameObject = Instantiate(labelPrefab, labelsParent.transform, true);
-        dieLabel = dieLabelGameObject.GetComponent<Label>();
-        dieLabel.labelColour = playerColour;
-        dieLabel.trackedObject = die.transform;
-        dieLabel.otherObject = transform; // Temporary
-        //dieLabel.gameObject.SetActive(false);
-        dieLabel.Show();
+        //dieLabelObject = Instantiate(labelPrefab, labelsParent.transform, true);
+        //dieLabel = dieLabelObject.GetComponent<Label>();
+        //dieLabel.trackedObject = die.transform;
+        //dieLabel.labelColour = playerColour;
+        //dieLabel.Hide();
 
     }
 
@@ -69,34 +75,18 @@ public class LabelController : MonoBehaviour
         transform.position = dieObject.transform.position;
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, colliderRotation);
 
-
         dieLabel.valueDisplayed = die.currentAttack;
 
-
-        /*bool emphasizeDieLabel = false;
-        //TODO: Iterate over active labels; should be triggered by some event instead
-        List<Label> destroyedLabels = new List<Label>(activeLabels);
-        foreach (Label label in destroyedLabels)
-        {
-            if (!label.gameObject.activeSelf) activeLabels.Remove(label);
-        }
-        foreach (Label label in activeLabels)
-        {
-            if (label.emphasized && !label.disabled) emphasizeDieLabel = true;
-            dieLabel.otherObject = label.trackedObject.transform;
-        }
-        if(emphasizeDieLabel)
-        {
-            dieLabel.gameObject.SetActive(true);
-            //dieLabel.Show();   
-        }
-        else
-        {
-            dieLabel.otherObject = transform;
-            //dieLabel.gameObject.SetActive(false); // Should be controlled by Hide animation trigger instead
-            dieLabel.Hide();
-        }*/
-
+        //if(GameSession.instance.doublePowerup && !dieLabel.emphasized)
+        //{
+        //    dieLabel.gameObject.SetActive(true);
+        //    dieLabel.emphasized = true;
+        //    dieLabel.Emphasize();
+        //}
+        //else if (!GameSession.instance.doublePowerup)
+        //{
+        //    dieLabel.Hide();
+        //}
 
     }
 
@@ -107,9 +97,10 @@ public class LabelController : MonoBehaviour
             //Refactor
             GameObject label = labels[other.gameObject].gameObject;
             label.SetActive(true);
-            activeLabels.Add(label.GetComponent<Label>());
+            Label labelComponent = label.GetComponent<Label>();
+            activeLabels.Add(labelComponent);
             label.transform.position = other.gameObject.transform.position;
-            label.GetComponent<Label>().Show();
+            labelComponent.Show();
         }
     }
 
@@ -120,8 +111,7 @@ public class LabelController : MonoBehaviour
             Label label = labels[other.gameObject];
             label.Hide();
             activeLabels.Remove(label);
-            
-           
+    
         }
     }
 

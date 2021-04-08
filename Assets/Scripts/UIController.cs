@@ -9,6 +9,10 @@ public class UIController : MonoBehaviour
 
     public Text doubleCountdownText;
     public GameObject doubleCountdownDisplay;
+    public GameObject collectionDisplay;
+
+    public Sprite missingPieceIcon;
+    public Sprite collectedPieceIcon;
 
     private void Start()
     {
@@ -18,6 +22,7 @@ public class UIController : MonoBehaviour
     private void LateUpdate()
     {
         SetPlayerHealthText(GameSession.instance.health);
+        UpdateCollectionDisplay();
         if (GameSession.instance.doublePowerup)
         {
             doubleCountdownDisplay.SetActive(true);
@@ -35,6 +40,27 @@ public class UIController : MonoBehaviour
     public void SetDoubleTimerText(int timerValue)
     {
         doubleCountdownText.text = timerValue.ToString();
+    }
+
+    //TODO: Optimise
+    public void UpdateCollectionDisplay()
+    {
+        Image[] images = collectionDisplay.GetComponentsInChildren<Image>();
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                bool collected = GameSession.instance.collection.IsPieceCollectedOrOwned(i + 1, j + 1);
+                if (collected)
+                {
+                    images[(i*6)+j].sprite = collectedPieceIcon;
+                }
+                else
+                {
+                    images[(i * 6) + j].sprite = missingPieceIcon;
+                }
+            }
+        }
     }
 
 }

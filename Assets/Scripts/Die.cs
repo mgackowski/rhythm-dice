@@ -160,6 +160,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 {
                     audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
                     enemy.GetComponent<Enemy>().GetSquashed();
+                    GameSession.instance.collection.AddCollectedPiece(enemy.seriesNumber, enemy.numberInSeries);
                     nextTile.SetActive(false); // bug: cuts off enemy sound too early
                 }
             }
@@ -173,7 +174,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
             if (hit.collider.gameObject.CompareTag("HealthPickup"))
             {
-                audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
+                audioController.PlayChord(DieAudioController.SoundEffect.CollectHealth);
                 GameSession.instance.Heal();
                 hit.collider.gameObject.SetActive(false);
 
@@ -181,7 +182,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
             if (hit.collider.gameObject.CompareTag("DoublePickup"))
             {
-                audioController.PlayChord(DieAudioController.SoundEffect.DealDamage);
+                audioController.PlayChord(DieAudioController.SoundEffect.CollectDouble);
                 GameSession.instance.ActivateDoublePowerup(hit.collider.gameObject);
             }
         }

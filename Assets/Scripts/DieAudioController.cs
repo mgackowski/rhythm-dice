@@ -12,10 +12,12 @@ public class DieAudioController : MonoBehaviour
     public AudioClip bounceClip;
     public AudioClip damageClip;
     public AudioClip hitClip;
+    public AudioClip healthPowerupClip;
+    public AudioClip doublePowerupClip;
 
     public enum SoundEffect
     {
-        Rebound, DealDamage, TakeDamage
+        Rebound, DealDamage, TakeDamage, CollectHealth, CollectDouble
     }
 
     public void PlayBeat()
@@ -41,6 +43,12 @@ public class DieAudioController : MonoBehaviour
                 break;
             case SoundEffect.TakeDamage:
                 clipToPlay = damageClip;
+                break;
+            case SoundEffect.CollectHealth:
+                clipToPlay = healthPowerupClip;
+                break;
+            case SoundEffect.CollectDouble:
+                clipToPlay = doublePowerupClip;
                 break;
         }
         if (clipToPlay != null) {

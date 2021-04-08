@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
     public static GameSession instance;
 
-    //public GameObject levelUIprefab;
-
     private UIController uiController;
     private SceneController sceneController;
+
+    public CollectionManager collection;
 
     public int defaultHealth = 10;
     public int maxDoubleDuration = 16;
@@ -19,13 +20,13 @@ public class GameSession : MonoBehaviour
     private GameObject doublePickupUsed;
 
     public string playerName  = "Player";
-    // store current dice collection
-    // store current game piece collection
+
     public int levelsCompleted = 0;
     public int polybagTokens = 0;
 
     public bool tutorialCompleted = false;
     public bool boxObtained = false;
+
 
     private void Awake()
     {
@@ -90,6 +91,7 @@ public class GameSession : MonoBehaviour
 
     public void RestartLevel()
     {
+        collection.DiscardCollectedPieces();
         StartCoroutine(GetComponent<SceneController>().ChangeScene(SceneManager.GetActiveScene().name, true, 1f, 1f));
     }
 
