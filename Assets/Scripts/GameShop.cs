@@ -1,9 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameShop : MonoBehaviour
 {
+    public GameObject mainMenu;
+    public GameObject newGameMenu;
+    public InputField playerName;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +20,20 @@ public class GameShop : MonoBehaviour
         
     }
 
-    public void ButtonTest()
+    public void NewGameMenu()
     {
-        Debug.Log("ButtonPressed");
+        mainMenu.SetActive(false);
+        newGameMenu.SetActive(true);
     }
 
     public void StartLevel()
     {
-        StartCoroutine(SceneController.instance.ChangeScene("Scene_0",true,2f));
+        GameSession.instance.playerName = playerName.textComponent.text;
+        StartCoroutine(SceneController.instance.ChangeScene("Level_1",true,2f));
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
