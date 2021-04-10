@@ -1,15 +1,39 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
+    public enum State
+    {
+        MainMenu, InGameSession
+    }
+
     public static GameSession instance;
 
+    public State gameState = State.MainMenu;
+
+    private UIController uiController;
+    private SceneController sceneController;
+
+    public CollectionManager collection;
+
+    public int defaultHealth = 10;
+    public int maxDoubleDuration = 16;
+
+    public int health = 10;
+    public bool doublePowerup = false;
+    public int doublePowerRemaining;
+    private GameObject doublePickupUsed;
+
     public string playerName  = "Player";
-    // store current dice collection
-    // store current game piece collection
+
     public int levelsCompleted = 0;
     public int polybagTokens = 0;
+
+    public bool tutorialCompleted = false;
     public bool boxObtained = false;
+
 
     private void Awake()
     {
@@ -24,6 +48,67 @@ public class GameSession : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    private void Start()
+    {
+        SceneManager.activeSceneChanged += delegate { SetUpLevel(); };
+    }
+
+    public void ActivateDoublePowerup(GameObject pickupUsed)
+    {
+        doublePowerup = true;
+        doublePowerRemaining = maxDoubleDuration;
+        doublePickupUsed = pickupUsed;
+        doublePickupUsed.SetActive(false);
+    }
+
+    public void DecreaseDoublePowerupTimer()
+    {
+        doublePowerRemaining--;
+        if (doublePowerRemaining <= 0)
+        {
+            doublePowerup = false;
+            doublePowerRemaining = maxDoubleDuration;
+            doublePickupUsed.SetActive(true);
+            doublePickupUsed = null;
+        }
+    }
+
+    public void SetUpLevel()
+    {
+        Heal();
+        if (!tutorialCompleted) GameObject.FindGameObjectWithTag("Die").transform.position = Vector3.zero;
+        collection.DiscardCollectedPieces();
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health = Mathf.Max(health - amount, 0);
+        if(health <= 0)
+        {
+            GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
+            RestartLevel();
+        }
+    }
+
+    public void Heal()
+    {
+        health = defaultHealth;
+    }
+
+    public void RestartLevel()
+    {
+        collection.DiscardCollectedPieces();
+        StartCoroutine(GetComponent<SceneController>().ChangeScene(SceneManager.GetActiveScene().name, true, 1f, 1f));
+    }
+
+    public void CompleteLevel()
+    {
+        collection.PersistCollectedPieces();
+        GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
+        StartCoroutine(GetComponent<SceneController>().ChangeScene("GameShop", true, 1f, 1f));
+
     }
 
     public void LoadGame() {

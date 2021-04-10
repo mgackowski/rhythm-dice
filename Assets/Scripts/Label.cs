@@ -9,11 +9,12 @@ public class Label : MonoBehaviour
     public float movementDuration = 0.1f;
     public Transform trackedObject;
     public Transform otherObject;
+    public PlayerLabel playerLabel;
 
     public MeshRenderer labelRenderer;
     public Animator animator;
 
-    private TextMesh textMesh;
+    protected TextMesh textMesh;
     public  bool disabled = false;
     public bool emphasized = false;
 
@@ -52,15 +53,21 @@ public class Label : MonoBehaviour
         textMesh.text = valueDisplayed.ToString();
 
         Vector3 objectPosition = trackedObject.position;
-        Vector3 otherPosition = otherObject.position;
-        Vector3 difference = otherPosition - objectPosition;
+        Vector3 difference = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        if (otherObject != null)
+        {
+            Vector3 otherPosition = otherObject.position;
+            difference = otherPosition - objectPosition;
+        }
 
         if (difference.magnitude < 1.4f)
         {
+
             if (!emphasized)
             {
                 Emphasize();
                 emphasized = true;
+                playerLabel.ReactToEnemyProximity(difference);
             }
 
             float angle = Mathf.Atan2(difference.y, difference.x) * 180 / Mathf.PI;
