@@ -11,6 +11,7 @@ TagManager:
   - FadeScreen
   - HealthPickup
   - DoublePickup
+  - TriggerLevelComplete
   layers:
   - Default
   - TransparentFX

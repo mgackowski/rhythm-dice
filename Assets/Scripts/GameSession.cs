@@ -4,7 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
+    public enum State
+    {
+        MainMenu, InGameSession
+    }
+
     public static GameSession instance;
+
+    public State gameState = State.MainMenu;
 
     private UIController uiController;
     private SceneController sceneController;
@@ -72,6 +79,7 @@ public class GameSession : MonoBehaviour
     {
         Heal();
         if (!tutorialCompleted) GameObject.FindGameObjectWithTag("Die").transform.position = Vector3.zero;
+        collection.DiscardCollectedPieces();
     }
 
     public void TakeDamage(int amount)
@@ -93,6 +101,14 @@ public class GameSession : MonoBehaviour
     {
         collection.DiscardCollectedPieces();
         StartCoroutine(GetComponent<SceneController>().ChangeScene(SceneManager.GetActiveScene().name, true, 1f, 1f));
+    }
+
+    public void CompleteLevel()
+    {
+        collection.PersistCollectedPieces();
+        GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
+        StartCoroutine(GetComponent<SceneController>().ChangeScene("GameShop", true, 1f, 1f));
+
     }
 
     public void LoadGame() {

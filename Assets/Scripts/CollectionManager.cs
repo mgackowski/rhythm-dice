@@ -29,6 +29,16 @@ public class CollectionManager : MonoBehaviour
         pieces[series-1].gamePiece[numInSeries-1].collected = true;
     }
 
+    public GameObject GetPrefab(int series, int numInSeries)
+    {
+        return pieces[series - 1].gamePiece[numInSeries - 1].prefab;
+    }
+
+    public bool IsPieceOwned(int series, int numInSeries)
+    {
+        return pieces[series - 1].gamePiece[numInSeries - 1].owned;
+    }
+
     public bool IsPieceCollectedOrOwned(int series, int numInSeries)
     {
         return pieces[series-1].gamePiece[numInSeries-1].collected || pieces[series-1].gamePiece[numInSeries-1].owned;

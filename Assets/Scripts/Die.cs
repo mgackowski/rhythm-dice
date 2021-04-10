@@ -185,6 +185,11 @@ public class Die : MonoBehaviour, IMetronomeObserver
                 audioController.PlayChord(DieAudioController.SoundEffect.CollectDouble);
                 GameSession.instance.ActivateDoublePowerup(hit.collider.gameObject);
             }
+
+            if (hit.collider.gameObject.CompareTag("TriggerLevelComplete"))
+            {
+                GameSession.instance.CompleteLevel();
+            }
         }
         else
         {
