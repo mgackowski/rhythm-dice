@@ -65,7 +65,6 @@ public class GameSession : MonoBehaviour
 
     public void DecreaseDoublePowerupTimer()
     {
-        doublePowerRemaining--;
         if (doublePowerRemaining <= 0)
         {
             doublePowerup = false;
@@ -73,6 +72,7 @@ public class GameSession : MonoBehaviour
             doublePickupUsed.SetActive(true);
             doublePickupUsed = null;
         }
+        doublePowerRemaining--;
     }
 
     public void SetUpLevel()

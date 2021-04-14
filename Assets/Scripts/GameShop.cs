@@ -21,9 +21,7 @@ public class GameShop : MonoBehaviour
             LevelCompleteMenu();
         }
 
-
     }
-
 
     public void LevelCompleteMenu()
     {

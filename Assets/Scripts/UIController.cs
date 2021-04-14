@@ -39,6 +39,7 @@ public class UIController : MonoBehaviour
 
     public void SetDoubleTimerText(int timerValue)
     {
+        timerValue++;
         doubleCountdownText.text = timerValue.ToString();
     }
 

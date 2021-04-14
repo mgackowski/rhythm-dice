@@ -2126,12 +2126,12 @@ PrefabInstance:
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 115
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 3798667866958767692, guid: a99a245ce0927694e9aff47ee6684cb8,
         type: 3}
@@ -9505,7 +9505,7 @@ MonoBehaviour:
     m_Bits: 256
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
