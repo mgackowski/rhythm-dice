@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
 
 public class Metronome : MonoBehaviour
 {
@@ -27,11 +28,39 @@ public class Metronome : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(Beat(initialDelaySeconds));
+        //StartCoroutine(Beat(initialDelaySeconds));
+
+        InvokeRepeating("PreBeatThenBeat", initialDelaySeconds, interval);
     }
     void Update()
     {
         
+    }
+
+    private void PreBeatThenBeat()
+    {
+        if (Mathf.Approximately(interval, float.MaxValue)) return;
+
+        float intervalPreBeat = interval * (1f - leadUpTime); ;
+        PreNotifyObservers();
+        Invoke("Beat", intervalPreBeat);
+
+    }
+
+    private void Beat()
+    {
+        NotifyObservers();
+        if (playTensionClip)
+        {
+            audioSource.clip = tensionClip;
+            playTensionClip = false;
+        }
+        else
+        {
+            audioSource.clip = beatClip[beatNumber];
+        }
+        audioSource.Play();
+        beatNumber = (beatNumber + 1) % beatClip.Length;
     }
 
     /* Override next beat with a different audio clip set as the 'tensionClip' */
@@ -40,7 +69,12 @@ public class Metronome : MonoBehaviour
         playTensionClip = true;
     }
 
-    IEnumerator Beat(float initialDelaySeconds)
+    public void StopBeat()
+    {
+        CancelInvoke("PreBeatThenBeat");
+    }
+
+    /*IEnumerator Beat(float initialDelaySeconds)
     {
         float intervalPreBeat;
         float intervalPostBeat;
@@ -64,7 +98,7 @@ public class Metronome : MonoBehaviour
             beatNumber = (beatNumber + 1) % beatClip.Length;
             yield return new WaitForSeconds(intervalPostBeat);
         }
-    }
+    }*/
 
     public void AddObserver(IMetronomeObserver observer)
     {

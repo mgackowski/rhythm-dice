@@ -13,11 +13,6 @@ public class Die : MonoBehaviour, IMetronomeObserver
     public Direction movementDirection = Direction.Up;
     public bool stopped = false;
 
-    //public bool doubled = false;
-    //public int maxDoubleDuration = 16;
-    //private int doublePowerRemaining;
-    //private GameObject doublePickupUsed;
-
     private DieModel dieModel;
     private DieSide currentSide;
     private SphereCollider obstacleDetector;
