@@ -417,9 +417,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 96ec2c185a24aac4e9ca3089e474c1d5, type: 3}
     m_FontSize: 42
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 62
+    m_MaxSize: 218
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
