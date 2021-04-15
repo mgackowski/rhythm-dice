@@ -42217,6 +42217,9 @@ MonoBehaviour:
   polybagTokens: 0
   tutorialCompleted: 0
   boxObtained: 0
+  qualityLevels: 
+  postProcessOn: 
+  selectedResolutionIndex: 0
 --- !u!4 &1768510353
 Transform:
   m_ObjectHideFlags: 0
@@ -44042,7 +44045,7 @@ GameObject:
   - component: {fileID: 1952009197}
   m_Layer: 8
   m_Name: PostProcessing
-  m_TagString: Untagged
+  m_TagString: PostProcessing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
