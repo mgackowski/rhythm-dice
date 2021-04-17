@@ -897,6 +897,9 @@ MonoBehaviour:
   polybagTokens: 0
   tutorialCompleted: 0
   boxObtained: 0
+  qualityLevels: 
+  postProcessOn: 
+  selectedResolutionIndex: 0
 --- !u!4 &169711012
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
@@ -34,6 +35,12 @@ public class GameSession : MonoBehaviour
     public bool tutorialCompleted = false;
     public bool boxObtained = false;
 
+    /* TODO: Extract Quality settings */
+    public Resolution[] resolutions;
+    public int[] qualityLevels;
+    public bool[] postProcessOn;
+    public int selectedResolutionIndex = 0;
+
 
     private void Awake()
     {
@@ -53,7 +60,19 @@ public class GameSession : MonoBehaviour
     private void Start()
     {
         SceneManager.activeSceneChanged += delegate { SetUpLevel(); };
+        InitialiseResolutions();
     }
+
+    private void LateUpdate()
+    {
+        //MaintainScreenResolution(); // TODO: Extract to specialised class
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ToggleQualitySetting();
+            ApplyQualitySetting();
+        }
+    }
+
 
     public void ActivateDoublePowerup(GameObject pickupUsed)
     {
@@ -119,5 +138,38 @@ public class GameSession : MonoBehaviour
         Debug.Log("Call to SaveGame()");
     }
 
+    /* Resolution and quality-handling methods - extract to specialised class */
+
+    private void ApplyQualitySetting()
+    {
+        Screen.SetResolution(resolutions[selectedResolutionIndex].width, resolutions[selectedResolutionIndex].height, Screen.fullScreenMode);
+        QualitySettings.SetQualityLevel(qualityLevels[selectedResolutionIndex]);
+        GameObject postProcess = GameObject.FindGameObjectWithTag("PostProcessing");
+        if (postProcess != null) postProcess.GetComponent<PostProcessVolume>().enabled = postProcessOn[selectedResolutionIndex];
+        Canvas.ForceUpdateCanvases();
+    }
+
+    private void InitialiseResolutions()
+    {
+        resolutions = new Resolution[3];
+        resolutions[0].width = 1920;
+        resolutions[0].height = 1080;
+        resolutions[0].refreshRate = Screen.currentResolution.refreshRate;
+        resolutions[1].width = 1280;
+        resolutions[1].height = 720;
+        resolutions[1].refreshRate = Screen.currentResolution.refreshRate;
+        resolutions[2].width = 960;
+        resolutions[2].height = 540;
+        resolutions[2].refreshRate = Screen.currentResolution.refreshRate;
+
+        qualityLevels = new int[3] { 5, 3, 0};
+        postProcessOn = new bool[3] { true, true, false };
+
+    }
+
+    private void ToggleQualitySetting()
+    {
+        selectedResolutionIndex = (selectedResolutionIndex + 1) % resolutions.Length;
+    }
 
 }

@@ -12,20 +12,21 @@ public class Die : MonoBehaviour, IMetronomeObserver
     public Direction topFaceOrientation = Direction.Up;
     public Direction movementDirection = Direction.Up;
     public bool stopped = false;
+    public float movementIndicatorHeight = 0.49f;
 
     private DieModel dieModel;
     private DieSide currentSide;
-    private SphereCollider obstacleDetector;
     private GameObject nextTile;
     private DieAudioController audioController;
+    private Vector3 logicalPosition; // position of the Die that ignores animation
 
     void Start()
     {
         metronome.GetComponent<Metronome>().AddLateObserver(this);
         dieModel = new DieModel();
         currentSide = dieModel.Sides[Side.Top];
-        obstacleDetector = GetComponent<SphereCollider>();
         audioController = GetComponentInChildren<DieAudioController>();
+        logicalPosition = transform.position;
     }
 
     void Update()
@@ -60,7 +61,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         if (displayMovementIndicator)
         {
             Vector3 movementIndicatorPosition = transform.position;
-            movementIndicatorPosition.z = 0.49f; //TODO: Magic number
+            movementIndicatorPosition.z = movementIndicatorHeight;
             movementIndicatorPosition += movementDirection.DirectionToVector3();
             movementIndicatorPosition.x = Mathf.Round(movementIndicatorPosition.x);
             movementIndicatorPosition.y = Mathf.Round(movementIndicatorPosition.y);
@@ -89,7 +90,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
             Camera.main.GetComponent<CameraTracker>().ZoomBack();
         }
         if (!stopped) MoveOneStep();
-        //Physics.SyncTransforms();
+
     }
 
     public bool ScanFutureNeighbours()
@@ -133,7 +134,6 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
                 Enemy enemy = nextTile.GetComponent<Enemy>();
                 enemy.playSound();
-                //int nextDieAttack = DieMovementModel.Move(currentSide, topFaceOrientation, movementDirection).NewSide.Value;
                 if (enemy.attackPower > currentAttack)
                 {
                     movementDirection = movementDirection.ReverseDirection();
@@ -203,6 +203,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
         if (GameSession.instance.doublePowerup) currentAttack *= 2;
 
         // Physically move the die
+        transform.position = logicalPosition;
         Vector3 thisPosition = transform.position;
         Vector3 rotationPoint = transform.position;
         Vector3 rotationAxis = Vector3.zero;
@@ -231,9 +232,9 @@ public class Die : MonoBehaviour, IMetronomeObserver
             rotationPoint.x += 0.5f;
             rotationAxis = Vector3.down;
         }
-        //transform.position = thisPosition;
         rotationPoint.z += 0.5f;
 
+        logicalPosition = thisPosition;
         StartCoroutine(RotateSmoothly(rotationPoint, rotationAxis, thisPosition));
 
         audioController.PlayTone(currentAttack);
@@ -259,7 +260,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
 
     }
 
-    void Destroy()
+    void OnDestroy()
     {
         metronome.GetComponent<Metronome>().RemoveObserver(this);
     }

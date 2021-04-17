@@ -12,6 +12,7 @@ TagManager:
   - HealthPickup
   - DoublePickup
   - TriggerLevelComplete
+  - PostProcessing
   layers:
   - Default
   - TransparentFX
