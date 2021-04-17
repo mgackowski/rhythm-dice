@@ -740,10 +740,10 @@ Canvas:
   m_GameObject: {fileID: 168683815}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 1663891053}
   m_PlaneDistance: 1
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -897,6 +897,9 @@ MonoBehaviour:
   polybagTokens: 0
   tutorialCompleted: 0
   boxObtained: 0
+  qualityLevels: 
+  postProcessOn: 
+  selectedResolutionIndex: 0
 --- !u!4 &169711012
 Transform:
   m_ObjectHideFlags: 0
