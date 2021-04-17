@@ -65,10 +65,11 @@ public class GameSession : MonoBehaviour
 
     private void LateUpdate()
     {
-        MaintainScreenResolution(); // TODO: Extract to specialised class
+        //MaintainScreenResolution(); // TODO: Extract to specialised class
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ToggleQualitySetting();
+            ApplyQualitySetting();
         }
     }
 
@@ -139,16 +140,13 @@ public class GameSession : MonoBehaviour
 
     /* Resolution and quality-handling methods - extract to specialised class */
 
-    private void MaintainScreenResolution()
+    private void ApplyQualitySetting()
     {
-        if (Screen.currentResolution.width != resolutions[selectedResolutionIndex].width || Screen.currentResolution.height != resolutions[selectedResolutionIndex].height)
-        {
-            Screen.SetResolution(resolutions[selectedResolutionIndex].width, resolutions[selectedResolutionIndex].height, Screen.fullScreenMode);
-            QualitySettings.SetQualityLevel(qualityLevels[selectedResolutionIndex]);
-            GameObject postProcess = GameObject.FindGameObjectWithTag("PostProcessing");
-            if (postProcess != null) postProcess.GetComponent<PostProcessVolume>().enabled = postProcessOn[selectedResolutionIndex];
-
-        }
+        Screen.SetResolution(resolutions[selectedResolutionIndex].width, resolutions[selectedResolutionIndex].height, Screen.fullScreenMode);
+        QualitySettings.SetQualityLevel(qualityLevels[selectedResolutionIndex]);
+        GameObject postProcess = GameObject.FindGameObjectWithTag("PostProcessing");
+        if (postProcess != null) postProcess.GetComponent<PostProcessVolume>().enabled = postProcessOn[selectedResolutionIndex];
+        Canvas.ForceUpdateCanvases();
     }
 
     private void InitialiseResolutions()
