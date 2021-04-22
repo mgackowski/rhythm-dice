@@ -140,8 +140,12 @@ MonoBehaviour:
   valueDisplayed: 0
   movementDuration: 0.1
   trackedObject: {fileID: 0}
+  otherObject: {fileID: 0}
+  playerLabel: {fileID: 0}
   labelRenderer: {fileID: 930446135214266050}
   animator: {fileID: 930446136992107584}
+  disabled: 0
+  emphasized: 0
 --- !u!1 &930446136992107590
 GameObject:
   m_ObjectHideFlags: 0

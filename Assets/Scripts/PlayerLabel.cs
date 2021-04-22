@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/** TODO: This class duplicates a lot of Label's code **/
 public class PlayerLabel : MonoBehaviour
 {
 
@@ -14,7 +15,7 @@ public class PlayerLabel : MonoBehaviour
 
     private TextMesh textMesh;
 
-    private bool emphasized = false;
+    public Vector3 targetPosition;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class PlayerLabel : MonoBehaviour
         material.SetColor("_EmissionColor", labelColour);
 
         textMesh = gameObject.GetComponentInChildren<TextMesh>();
+        targetPosition = trackedObject.position;
     }
 
     public void Show()
@@ -42,9 +44,8 @@ public class PlayerLabel : MonoBehaviour
 
     private void Update()
     {
-        Vector3 targetPosition = trackedObject.transform.position;
-
-        targetPosition.z -= 2f; //TODO: Magic number
+        //Vector3 targetPosition = trackedObject.transform.position;
+        
         float speed = 10f; // TODO: Magic number
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
 
@@ -52,47 +53,39 @@ public class PlayerLabel : MonoBehaviour
 
     }
 
-    //TODO: Continue working here
     public void ReactToEnemyProximity(Vector3 positionDifference)
     {
-        /*if(!emphasized)
-        {
-            gameObject.SetActive(true);
-            emphasized = true;
-            transform.position = trackedObject.transform.position;
-            Emphasize();
 
-            Vector3 targetPosition = trackedObject.position;
-            targetPosition.z -= 2f;
-            float angle = Mathf.Atan2(positionDifference.y, positionDifference.x) * 180 / Mathf.PI;
-            if (angle >= 45 && angle < 135)
-            { //up
-                targetPosition.y -= 1;
-                targetPosition.x -= 1;  // label: lower-left
-            }
-            else if (angle >= -45 && angle < 45)
-            { //right
-                targetPosition.y += 1;
-                targetPosition.x -= 1;  // label: upper-left
-            }
-            else if (angle >= -135 && angle < -45)
-            { //down
-                targetPosition.y += 1;
-                targetPosition.x += 1;  // label: upper-right
-            }
-            else
-            { //left
-                targetPosition.y -= 1;
-                targetPosition.x += 1;  // label: lower-right
-            }
-            targetPosition.y -= 1; // correct for perspective;
+        transform.position = trackedObject.transform.position;
+        Emphasize();
 
-        }*/
-    }
+        positionDifference *= -1;
+        targetPosition = trackedObject.position;
+        targetPosition.z -= 2f;
+        float angle = Mathf.Atan2(positionDifference.y, positionDifference.x) * 180 / Mathf.PI;
+        if (angle >= 45 && angle < 135)
+        { //up
+            targetPosition.y -= 1;
+            targetPosition.x -= 1;  // label: lower-left
+        }
+        else if (angle >= -45 && angle < 45)
+        { //right
+            targetPosition.y += 1;
+            targetPosition.x -= 1;  // label: upper-left
+        }
+        else if (angle >= -135 && angle < -45)
+        { //down
+            targetPosition.y += 1;
+            targetPosition.x += 1;  // label: upper-right
+        }
+        else
+        { //left
+            targetPosition.y -= 1;
+            targetPosition.x += 1;  // label: lower-right
+        }
+        targetPosition.y -= 2; // correct for perspective;
+        targetPosition.z -= 2f; //TODO: Magic number
 
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
     }
 
 }

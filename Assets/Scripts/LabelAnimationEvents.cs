@@ -8,7 +8,7 @@ public class LabelAnimationEvents : MonoBehaviour
 
     public void Deactivate()
     {
-        label.SetActive(false);
+        if (label != null ) label.SetActive(false);
     }
 
 }
