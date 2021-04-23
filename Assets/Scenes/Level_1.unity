@@ -1944,13 +1944,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288181751}
-  m_LocalRotation: {x: -0, y: -0, z: 0.99995774, w: -0.00919842}
-  m_LocalPosition: {x: 29.62, y: 56.98, z: 0.599}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9999495, w: -0.0100524975}
+  m_LocalPosition: {x: 19.49, y: 54.181, z: 0.05}
   m_LocalScale: {x: 3.5, y: 2, z: 0.030968102}
   m_Children: []
   m_Father: {fileID: 1266077831}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 181.05399}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 181.152}
 --- !u!65 &288181753
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12678,6 +12678,7 @@ GameObject:
   - component: {fileID: 1232339284}
   - component: {fileID: 1232339286}
   - component: {fileID: 1232339285}
+  - component: {fileID: 1232339287}
   m_Layer: 5
   m_Name: UIPlayerPanel
   m_TagString: Untagged
@@ -12743,6 +12744,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232339283}
   m_CullTransparentMesh: 0
+--- !u!95 &1232339287
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232339283}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf2d7f9331f1d0c449c31e30b8eeca62, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1240199242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13385,6 +13405,7 @@ Transform:
   - {fileID: 1471891646}
   - {fileID: 494633929}
   - {fileID: 288181752}
+  - {fileID: 1275428715}
   m_Father: {fileID: 278331241}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13538,6 +13559,99 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1272912534}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1275428714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275428715}
+  - component: {fileID: 1275428718}
+  - component: {fileID: 1275428717}
+  - component: {fileID: 1275428716}
+  m_Layer: 0
+  m_Name: Cube (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1275428715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275428714}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9999495, w: -0.0100524975}
+  m_LocalPosition: {x: 42.53, y: 61.21, z: 0.05}
+  m_LocalScale: {x: 3.5, y: 2, z: 0.030968102}
+  m_Children: []
+  m_Father: {fileID: 1266077831}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 181.152}
+--- !u!65 &1275428716
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275428714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1275428717
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275428714}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 491b7adec076d6c4eb103971d2ade1c6, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1275428718
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275428714}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1278221444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22252,6 +22366,24 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
+  - first: {x: 18, y: 52, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: 19, y: 52, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
   - first: {x: 21, y: 52, z: 0}
     second:
       serializedVersion: 2
@@ -26690,6 +26822,42 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
   - first: {x: 37, y: 61, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: 40, y: 61, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: 41, y: 61, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: 42, y: 61, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: 43, y: 61, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -38922,17 +39090,17 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 1096
+  - m_RefCount: 1102
     m_Data: {fileID: 11400000, guid: b329bcf129ce3a1428584f6da6e56826, type: 2}
   - m_RefCount: 1350
     m_Data: {fileID: 11400000, guid: 88abbd96b4f57d34bb40df076b414c22, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1096
+  - m_RefCount: 1102
     m_Data: {fileID: 21300000, guid: 5a29bf1bdf5948e40a495cb0372bae9f, type: 3}
   - m_RefCount: 1350
     m_Data: {fileID: 21300000, guid: 7544118a9e7eac444bffebee045e27d0, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 2446
+  - m_RefCount: 2452
     m_Data:
       e00: 1
       e01: 0
@@ -38951,7 +39119,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 2446
+  - m_RefCount: 2452
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -42499,6 +42667,34 @@ MonoBehaviour:
   polybagTokens: 0
   tutorialCompleted: 0
   boxObtained: 0
+  tookDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931554413851403786}
+        m_MethodName: PlayDamageAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  healed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931554413851403786}
+        m_MethodName: PlayRestoreAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   qualityLevels: 
   postProcessOn: 
   selectedResolutionIndex: 0

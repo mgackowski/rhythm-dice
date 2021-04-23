@@ -14,9 +14,11 @@ public class UIController : MonoBehaviour
     public Sprite missingPieceIcon;
     public Sprite collectedPieceIcon;
 
+    private Animator animator;
+
     private void Start()
     {
-        
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void LateUpdate()
@@ -41,6 +43,16 @@ public class UIController : MonoBehaviour
     {
         timerValue++;
         doubleCountdownText.text = timerValue.ToString();
+    }
+
+    public void PlayDamageAnimation()
+    {
+        animator.SetTrigger("TakeDamage");
+    }
+
+    public void PlayRestoreAnimation()
+    {
+        animator.SetTrigger("RestoreHealth");
     }
 
     //TODO: Optimise

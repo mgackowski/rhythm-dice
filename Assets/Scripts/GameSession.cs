@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +34,9 @@ public class GameSession : MonoBehaviour
 
     public bool tutorialCompleted = false;
     public bool boxObtained = false;
+
+    public UnityEvent tookDamage;
+    public UnityEvent healed;
 
     /* TODO: Extract Quality settings */
     public Resolution[] resolutions;
@@ -103,6 +106,7 @@ public class GameSession : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        tookDamage.Invoke();
         health = Mathf.Max(health - amount, 0);
         if(health <= 0)
         {
@@ -113,6 +117,7 @@ public class GameSession : MonoBehaviour
 
     public void Heal()
     {
+        healed.Invoke();
         health = defaultHealth;
     }
 
