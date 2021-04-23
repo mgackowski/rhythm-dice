@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollectionManager : MonoBehaviour
 {
@@ -20,13 +19,19 @@ public class CollectionManager : MonoBehaviour
         public bool completedOnce = false;
     }
 
+    [System.Serializable]
+    public class PieceCollectedEvent : UnityEvent<int> { }
+
     public GamePieceSeries[] pieces;
     public int numberOfSeries = 2;
     public int piecesPerSeries = 6;
 
+    public PieceCollectedEvent pieceCollectedEvent;
+
     public void AddCollectedPiece(int series, int numInSeries)
     {
         pieces[series-1].gamePiece[numInSeries-1].collected = true;
+        pieceCollectedEvent.Invoke(((series-1) * 6) + numInSeries - 1);
     }
 
     public GameObject GetPrefab(int series, int numInSeries)

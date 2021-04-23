@@ -55,6 +55,12 @@ public class UIController : MonoBehaviour
         animator.SetTrigger("RestoreHealth");
     }
 
+    public void PlayEmphasizeCheckboxAnimation(int position)
+    {
+        Image[] images = collectionDisplay.GetComponentsInChildren<Image>();
+        images[position].GetComponent<Animator>().SetTrigger("Emphasize");
+    }
+
     //TODO: Optimise
     public void UpdateCollectionDisplay()
     {
