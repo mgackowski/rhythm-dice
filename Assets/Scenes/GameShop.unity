@@ -861,6 +861,9 @@ MonoBehaviour:
     completedOnce: 0
   numberOfSeries: 2
   piecesPerSeries: 6
+  pieceCollectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &169711010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,9 +900,16 @@ MonoBehaviour:
   polybagTokens: 0
   tutorialCompleted: 0
   boxObtained: 0
+  tookDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  healed:
+    m_PersistentCalls:
+      m_Calls: []
   qualityLevels: 
   postProcessOn: 
   selectedResolutionIndex: 0
+  fighterFigure: {fileID: 0}
 --- !u!4 &169711012
 Transform:
   m_ObjectHideFlags: 0
@@ -3222,7 +3232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182263512}
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.01004, y: 0.00137, z: 0.0058}
+  m_LocalPosition: {x: 0.01004, y: -0.00001, z: 0.0034}
   m_LocalScale: {x: 0.00044849014, y: 0.00268734, z: 0.00268734}
   m_Children: []
   m_Father: {fileID: 240577981}
@@ -3240,8 +3250,8 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
+  m_Anchor: 4
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -4496,7 +4506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1636403001
 Animator:
   serializedVersion: 3
