@@ -8397,6 +8397,7 @@ MonoBehaviour:
   wallTileName: blank-tile
   wallPrefab: {fileID: 7053217453797817743, guid: 1aba1e863d5767b429956ec48f6de704,
     type: 3}
+  fighterFigure: {fileID: 1630774850}
 --- !u!1001 &796660160
 PrefabInstance:
   m_ObjectHideFlags: 0

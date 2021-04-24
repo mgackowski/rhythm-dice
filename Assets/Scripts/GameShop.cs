@@ -8,6 +8,7 @@ public class GameShop : MonoBehaviour
     public GameObject levelCompleteMenu;
     public InputField playerName;
     public GameObject collectionBox;
+    public GameObject boxObtainedCard;
 
 
     void Start()
@@ -46,5 +47,10 @@ public class GameShop : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ToggleBoxObtainedCard()
+    {
+        boxObtainedCard.SetActive(!boxObtainedCard.activeSelf);
     }
 }

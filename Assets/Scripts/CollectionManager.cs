@@ -49,6 +49,26 @@ public class CollectionManager : MonoBehaviour
         return pieces[series-1].gamePiece[numInSeries-1].collected || pieces[series-1].gamePiece[numInSeries-1].owned;
     }
 
+    public bool IsSetCollected(int series)
+    {
+        bool result = false;
+        for (int i = 0; i < piecesPerSeries; i++)
+        {
+            result |= pieces[series - 1].gamePiece[i].collected;
+        }
+        return result;
+    }
+
+    public bool IsSetFlaggedCollectedOnce(int series)
+    {
+        return pieces[series - 1].completedOnce;
+    }
+
+    public void SetFlagSetCollectedOnce(int series, bool newFlag)
+    {
+        pieces[series - 1].completedOnce = newFlag;
+    }
+
     public void PersistCollectedPieces()
     {
         for (int i = 0; i < numberOfSeries; i++)

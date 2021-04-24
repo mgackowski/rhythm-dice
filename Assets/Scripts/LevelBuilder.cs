@@ -10,6 +10,8 @@ public class LevelBuilder : MonoBehaviour
     public string wallTileName;
     public GameObject wallPrefab;
 
+    public GameObject fighterFigure;
+
     void Start()
     {
         BoundsInt bounds = tilemap.cellBounds;
@@ -28,6 +30,8 @@ public class LevelBuilder : MonoBehaviour
                 }
             }
         }
+
+        GameSession.instance.fighterFigure = fighterFigure; // bit of a hack to put it here
 
     }
 }
