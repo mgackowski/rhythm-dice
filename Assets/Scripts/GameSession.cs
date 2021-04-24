@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
@@ -44,6 +45,9 @@ public class GameSession : MonoBehaviour
     public bool[] postProcessOn;
     public int selectedResolutionIndex = 0;
 
+    /* Shouldn't be here, used to implement the cutscene quickly */
+    public GameObject fighterFigure;
+
 
     private void Awake()
     {
@@ -68,7 +72,6 @@ public class GameSession : MonoBehaviour
 
     private void LateUpdate()
     {
-        //MaintainScreenResolution(); // TODO: Extract to specialised class
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ToggleQualitySetting();
@@ -131,6 +134,22 @@ public class GameSession : MonoBehaviour
     {
         collection.PersistCollectedPieces();
         GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
+        StartCoroutine(PlayLevel1EndCutscene());
+        //StartCoroutine(GetComponent<SceneController>().ChangeScene("GameShop", true, 1f, 1f));
+
+    }
+
+    /* A little hacky to have this in here when this should be level-specific */
+    public IEnumerator PlayLevel1EndCutscene()
+    {
+        yield return new WaitForSeconds(1f);
+
+        fighterFigure.SetActive(true);
+        CameraTracker cameraScript = Camera.current.GetComponent<CameraTracker>();
+        cameraScript.target = fighterFigure.transform;
+        cameraScript.ZoomIn();
+
+        yield return new WaitForSeconds(2f);
         StartCoroutine(GetComponent<SceneController>().ChangeScene("GameShop", true, 1f, 1f));
 
     }

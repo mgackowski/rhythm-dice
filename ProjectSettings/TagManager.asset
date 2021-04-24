@@ -13,6 +13,7 @@ TagManager:
   - DoublePickup
   - TriggerLevelComplete
   - PostProcessing
+  - Fighter
   layers:
   - Default
   - TransparentFX
