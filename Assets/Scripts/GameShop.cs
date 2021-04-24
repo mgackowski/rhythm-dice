@@ -39,7 +39,10 @@ public class GameShop : MonoBehaviour
 
     public void StartLevel()
     {
-        GameSession.instance.playerName = playerName.textComponent.text;
+        if (GameSession.instance.gameState == GameSession.State.MainMenu)
+        {
+            GameSession.instance.playerName = playerName.textComponent.text;
+        }
         StartCoroutine(SceneController.instance.ChangeScene("Level_1",true,2f));
         GameSession.instance.gameState = GameSession.State.InGameSession;
     }
