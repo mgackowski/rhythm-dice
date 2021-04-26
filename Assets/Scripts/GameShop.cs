@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GameShop : MonoBehaviour
@@ -9,6 +10,8 @@ public class GameShop : MonoBehaviour
     public InputField playerName;
     public GameObject collectionBox;
     public GameObject boxObtainedCard;
+
+    private AudioSource backgroundNoise;
 
 
     void Start()
@@ -21,6 +24,9 @@ public class GameShop : MonoBehaviour
         {
             LevelCompleteMenu();
         }
+
+        backgroundNoise = Camera.main.GetComponent<AudioSource>();
+        StartCoroutine(FadeInAmbience(1f, 0.7f));
 
     }
 
@@ -44,6 +50,7 @@ public class GameShop : MonoBehaviour
             GameSession.instance.playerName = playerName.textComponent.text;
         }
         StartCoroutine(SceneController.instance.ChangeScene("Level_1",true,2f));
+        StartCoroutine(FadeOutAmbience(1f));
         GameSession.instance.gameState = GameSession.State.InGameSession;
     }
 
@@ -56,4 +63,25 @@ public class GameShop : MonoBehaviour
     {
         boxObtainedCard.SetActive(!boxObtainedCard.activeSelf);
     }
+
+    public IEnumerator FadeOutAmbience(float fadeTime)
+    {
+        float startVolume = backgroundNoise.volume;
+
+        while (backgroundNoise.volume > 0)
+        {
+            backgroundNoise.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator FadeInAmbience(float fadeTime, float targetVolume)
+    {
+        while (backgroundNoise.volume < targetVolume)
+        {
+            backgroundNoise.volume += targetVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+    }
+
 }
