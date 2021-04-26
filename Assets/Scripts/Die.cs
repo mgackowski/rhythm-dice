@@ -24,7 +24,7 @@ public class Die : MonoBehaviour, IMetronomeObserver
     {
         metronome.GetComponent<Metronome>().AddLateObserver(this);
         dieModel = new DieModel();
-        currentSide = dieModel.Sides[Side.Top];
+        currentSide = dieModel.Sides[Side.Back];
         audioController = GetComponentInChildren<DieAudioController>();
         logicalPosition = transform.position;
     }

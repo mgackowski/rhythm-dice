@@ -103,7 +103,13 @@ public class GameSession : MonoBehaviour
     public void SetUpLevel()
     {
         Heal();
-        if (!tutorialCompleted) GameObject.FindGameObjectWithTag("Die").transform.position = Vector3.zero;
+        if (!tutorialCompleted) //for level 1 only
+        {
+            GameObject die = GameObject.FindGameObjectWithTag("Die");
+            die.transform.position = new Vector3(0,-1,0);
+            //die.transform.Rotate(new Vector3(-90, 0, 0), Space.Self);
+            //die.GetComponent<Die>().currentAttack = 1;
+        }
         collection.DiscardCollectedPieces();
     }
 
