@@ -27,6 +27,7 @@ public class DieAudioController : MonoBehaviour
     
     public void PlayTone(int value)
     {
+        // TODO: To prevent audio clipping, implement two alternating audio sources, and use volume = 0 instead of Stop()
         melodyAudioSource.clip = melodyClips[value];
         melodyAudioSource.Play();
     }
