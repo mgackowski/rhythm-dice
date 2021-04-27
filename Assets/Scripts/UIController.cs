@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -19,6 +20,22 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
+
+        GameSession.instance.healed.AddListener(() =>
+        {
+            PlayRestoreAnimation();
+        });
+
+        GameSession.instance.tookDamage.AddListener(() =>
+        {
+            PlayDamageAnimation();
+        });
+
+        GameSession.instance.collection.pieceCollectedEvent.AddListener((position) =>
+        {
+            PlayEmphasizeCheckboxAnimation(position);
+        });
+
     }
 
     private void LateUpdate()
