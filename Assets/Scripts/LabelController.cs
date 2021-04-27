@@ -16,7 +16,7 @@ public class LabelController : MonoBehaviour
     private Dictionary<GameObject, Label> labels; // K: tracked object, V: label component
     public List<Label> activeLabels;
 
-    //private GameObject dieLabelObject;
+    private GameObject dieLabelObject;
     private PlayerLabel dieLabel;
     //private bool dieLabelEmphasized = false;
 
@@ -29,6 +29,7 @@ public class LabelController : MonoBehaviour
         dieLabel = playerLabelObject.GetComponent<PlayerLabel>();
         dieLabel.trackedObject = die.transform;
         dieLabel.labelColour = playerColour;
+        dieLabel.Show();
 
         labels = new Dictionary<GameObject, Label>();
         activeLabels = new List<Label>();
@@ -46,12 +47,6 @@ public class LabelController : MonoBehaviour
             newLabel.SetActive(false);
             labels.Add(enemy, label);
         }
-
-        //dieLabelObject = Instantiate(labelPrefab, labelsParent.transform, true);
-        //dieLabel = dieLabelObject.GetComponent<Label>();
-        //dieLabel.trackedObject = die.transform;
-        //dieLabel.labelColour = playerColour;
-        //dieLabel.Hide();
 
     }
 

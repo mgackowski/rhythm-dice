@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -14,9 +15,27 @@ public class UIController : MonoBehaviour
     public Sprite missingPieceIcon;
     public Sprite collectedPieceIcon;
 
+    private Animator animator;
+
     private void Start()
     {
-        
+        animator = GetComponentInChildren<Animator>();
+
+        GameSession.instance.healed.AddListener(() =>
+        {
+            PlayRestoreAnimation();
+        });
+
+        GameSession.instance.tookDamage.AddListener(() =>
+        {
+            PlayDamageAnimation();
+        });
+
+        GameSession.instance.collection.pieceCollectedEvent.AddListener((position) =>
+        {
+            PlayEmphasizeCheckboxAnimation(position);
+        });
+
     }
 
     private void LateUpdate()
@@ -41,6 +60,22 @@ public class UIController : MonoBehaviour
     {
         timerValue++;
         doubleCountdownText.text = timerValue.ToString();
+    }
+
+    public void PlayDamageAnimation()
+    {
+        animator.SetTrigger("TakeDamage");
+    }
+
+    public void PlayRestoreAnimation()
+    {
+        animator.SetTrigger("RestoreHealth");
+    }
+
+    public void PlayEmphasizeCheckboxAnimation(int position)
+    {
+        Image[] images = collectionDisplay.GetComponentsInChildren<Image>();
+        images[position].GetComponent<Animator>().SetTrigger("Emphasize");
     }
 
     //TODO: Optimise

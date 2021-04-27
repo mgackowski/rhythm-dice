@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollectionManager : MonoBehaviour
 {
@@ -20,13 +19,19 @@ public class CollectionManager : MonoBehaviour
         public bool completedOnce = false;
     }
 
+    [System.Serializable]
+    public class PieceCollectedEvent : UnityEvent<int> { }
+
     public GamePieceSeries[] pieces;
     public int numberOfSeries = 2;
     public int piecesPerSeries = 6;
 
+    public PieceCollectedEvent pieceCollectedEvent;
+
     public void AddCollectedPiece(int series, int numInSeries)
     {
         pieces[series-1].gamePiece[numInSeries-1].collected = true;
+        pieceCollectedEvent.Invoke(((series-1) * 6) + numInSeries - 1);
     }
 
     public GameObject GetPrefab(int series, int numInSeries)
@@ -42,6 +47,26 @@ public class CollectionManager : MonoBehaviour
     public bool IsPieceCollectedOrOwned(int series, int numInSeries)
     {
         return pieces[series-1].gamePiece[numInSeries-1].collected || pieces[series-1].gamePiece[numInSeries-1].owned;
+    }
+
+    public bool IsSetCollected(int series)
+    {
+        bool result = false;
+        for (int i = 0; i < piecesPerSeries; i++)
+        {
+            result |= pieces[series - 1].gamePiece[i].collected;
+        }
+        return result;
+    }
+
+    public bool IsSetFlaggedCollectedOnce(int series)
+    {
+        return pieces[series - 1].completedOnce;
+    }
+
+    public void SetFlagSetCollectedOnce(int series, bool newFlag)
+    {
+        pieces[series - 1].completedOnce = newFlag;
     }
 
     public void PersistCollectedPieces()

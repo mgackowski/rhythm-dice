@@ -140,12 +140,8 @@ MonoBehaviour:
   valueDisplayed: 0
   movementDuration: 0.1
   trackedObject: {fileID: 0}
-  otherObject: {fileID: 0}
   labelRenderer: {fileID: 930446135214266050}
-  labelController: {fileID: 0}
   animator: {fileID: 930446136992107584}
-  disabled: 0
-  emphasized: 0
 --- !u!1 &930446136992107590
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +186,7 @@ Animator:
   m_GameObject: {fileID: 930446136992107590}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c97cee716d66aa04d835dae2bfd70210, type: 2}
+  m_Controller: {fileID: 9100000, guid: 00afcef46f6112c4aa41ef181dae0a18, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -211,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d427b6604e7c3e548bb68c8eb512b453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: {fileID: 930446136323094092}
+  label: {fileID: 0}
 --- !u!1 &930446137034425925
 GameObject:
   m_ObjectHideFlags: 0

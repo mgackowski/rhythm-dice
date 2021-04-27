@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
@@ -35,11 +36,17 @@ public class GameSession : MonoBehaviour
     public bool tutorialCompleted = false;
     public bool boxObtained = false;
 
+    public UnityEvent tookDamage;
+    public UnityEvent healed;
+
     /* TODO: Extract Quality settings */
     public Resolution[] resolutions;
     public int[] qualityLevels;
     public bool[] postProcessOn;
     public int selectedResolutionIndex = 0;
+
+    /* Shouldn't be here, used to implement the cutscene quickly */
+    public GameObject fighterFigure;
 
 
     private void Awake()
@@ -65,12 +72,17 @@ public class GameSession : MonoBehaviour
 
     private void LateUpdate()
     {
-        //MaintainScreenResolution(); // TODO: Extract to specialised class
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ToggleQualitySetting();
             ApplyQualitySetting();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            Application.Quit();
+        }
+
     }
 
 
@@ -97,12 +109,19 @@ public class GameSession : MonoBehaviour
     public void SetUpLevel()
     {
         Heal();
-        if (!tutorialCompleted) GameObject.FindGameObjectWithTag("Die").transform.position = Vector3.zero;
+        if (!tutorialCompleted) //for level 1 only
+        {
+            GameObject die = GameObject.FindGameObjectWithTag("Die");
+            die.transform.position = new Vector3(0,-1,0);
+            //die.transform.Rotate(new Vector3(-90, 0, 0), Space.Self);
+            //die.GetComponent<Die>().currentAttack = 1;
+        }
         collection.DiscardCollectedPieces();
     }
 
     public void TakeDamage(int amount)
     {
+        tookDamage.Invoke();
         health = Mathf.Max(health - amount, 0);
         if(health <= 0)
         {
@@ -113,6 +132,7 @@ public class GameSession : MonoBehaviour
 
     public void Heal()
     {
+        healed.Invoke();
         health = defaultHealth;
     }
 
@@ -126,6 +146,22 @@ public class GameSession : MonoBehaviour
     {
         collection.PersistCollectedPieces();
         GameObject.FindGameObjectWithTag("Metronome").GetComponent<Metronome>().interval = float.MaxValue;
+        StartCoroutine(PlayLevel1EndCutscene());
+        //StartCoroutine(GetComponent<SceneController>().ChangeScene("GameShop", true, 1f, 1f));
+
+    }
+
+    /* A little hacky to have this in here when this should be level-specific */
+    public IEnumerator PlayLevel1EndCutscene()
+    {
+        yield return new WaitForSeconds(1f);
+
+        fighterFigure.SetActive(true);
+        CameraTracker cameraScript = Camera.current.GetComponent<CameraTracker>();
+        cameraScript.target = fighterFigure.transform;
+        cameraScript.ZoomIn();
+
+        yield return new WaitForSeconds(2f);
         StartCoroutine(GetComponent<SceneController>().ChangeScene("GameShop", true, 1f, 1f));
 
     }

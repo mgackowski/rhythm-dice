@@ -5,6 +5,7 @@ using UnityEngine;
 public class DieAudioController : MonoBehaviour
 {
     public AudioSource melodyAudioSource;
+    public AudioSource melodyAudioSource2; // alternate audio source to prevent audio pops
     public AudioSource soundAudioSource;
     public AudioSource beatAudioSource;
 
@@ -14,6 +15,8 @@ public class DieAudioController : MonoBehaviour
     public AudioClip hitClip;
     public AudioClip healthPowerupClip;
     public AudioClip doublePowerupClip;
+
+    private bool alternateSource = false;
 
     public enum SoundEffect
     {
@@ -27,8 +30,24 @@ public class DieAudioController : MonoBehaviour
     
     public void PlayTone(int value)
     {
-        melodyAudioSource.clip = melodyClips[value];
-        melodyAudioSource.Play();
+        AudioSource currentSource, otherSource;
+        if (alternateSource)
+        {
+            currentSource = melodyAudioSource;
+            otherSource = melodyAudioSource2;
+        }
+        else
+        {
+            currentSource = melodyAudioSource2;
+            otherSource = melodyAudioSource;
+        }
+        alternateSource = !alternateSource;
+
+        // TODO: To prevent audio clipping, implement two alternating audio sources, and use volume = 0 instead of Stop()
+        otherSource.volume = 0f;
+        currentSource.clip = melodyClips[value];
+        currentSource.volume = 1f;
+        currentSource.Play();
     }
     public void PlayChord(SoundEffect sound)
     {
