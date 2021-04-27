@@ -10,6 +10,7 @@ public class GameShop : MonoBehaviour
     public InputField playerName;
     public GameObject collectionBox;
     public GameObject boxObtainedCard;
+    public GameObject quitButton;
 
     private AudioSource backgroundNoise;
 
@@ -27,6 +28,11 @@ public class GameShop : MonoBehaviour
 
         backgroundNoise = Camera.main.GetComponent<AudioSource>();
         StartCoroutine(FadeInAmbience(1f, 0.7f));
+
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            quitButton.SetActive(false);
+        }
 
     }
 

@@ -678,6 +678,7 @@ MonoBehaviour:
   playerName: {fileID: 2130587983}
   collectionBox: {fileID: 1636403000}
   boxObtainedCard: {fileID: 1973390810}
+  quitButton: {fileID: 1309207863}
 --- !u!4 &150930160
 Transform:
   m_ObjectHideFlags: 0
@@ -2167,7 +2168,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Quit
+  m_Text: Quit (Esc)
 --- !u!222 &515324930
 CanvasRenderer:
   m_ObjectHideFlags: 0

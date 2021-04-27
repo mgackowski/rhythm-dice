@@ -77,6 +77,12 @@ public class GameSession : MonoBehaviour
             ToggleQualitySetting();
             ApplyQualitySetting();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            Application.Quit();
+        }
+
     }
 
 

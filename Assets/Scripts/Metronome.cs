@@ -15,7 +15,7 @@ public class Metronome : MonoBehaviour
 
     private List<IMetronomeObserver> observers;
     private List<IMetronomeObserver> lateObservers;
-    private AudioSource audioSource;
+    private AudioSource[] audioSource; // use two sources to alternate beat and prevent audio crackle
     private int beatNumber = 0;
 
 
@@ -27,7 +27,7 @@ public class Metronome : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>();
         //StartCoroutine(Beat(initialDelaySeconds));
 
         InvokeRepeating("PreBeatThenBeat", initialDelaySeconds, interval);
@@ -52,14 +52,16 @@ public class Metronome : MonoBehaviour
         NotifyObservers();
         if (playTensionClip)
         {
-            audioSource.clip = tensionClip;
+            audioSource[beatNumber].clip = tensionClip;
             playTensionClip = false;
         }
         else
         {
-            audioSource.clip = beatClip[beatNumber];
+            audioSource[beatNumber].clip = beatClip[beatNumber];
         }
-        audioSource.Play();
+        audioSource[(beatNumber + 1) % 2].volume = 0f;
+        audioSource[beatNumber].volume = 1f;
+        audioSource[beatNumber].Play();
         beatNumber = (beatNumber + 1) % beatClip.Length;
     }
 
