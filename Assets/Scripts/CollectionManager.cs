@@ -51,10 +51,10 @@ public class CollectionManager : MonoBehaviour
 
     public bool IsSetCollected(int series)
     {
-        bool result = false;
+        bool result = true;
         for (int i = 0; i < piecesPerSeries; i++)
         {
-            result |= IsPieceCollectedOrOwned(series, i + 1);
+            result &= IsPieceCollectedOrOwned(series, i + 1);
         }
         return result;
     }
