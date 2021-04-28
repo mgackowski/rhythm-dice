@@ -54,7 +54,7 @@ public class CollectionManager : MonoBehaviour
         bool result = false;
         for (int i = 0; i < piecesPerSeries; i++)
         {
-            result |= pieces[series - 1].gamePiece[i].collected;
+            result |= IsPieceCollectedOrOwned(series, i + 1);
         }
         return result;
     }

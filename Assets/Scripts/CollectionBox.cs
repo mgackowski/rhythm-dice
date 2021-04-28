@@ -47,7 +47,6 @@ public class CollectionBox : MonoBehaviour
             gamePieceDisplayAnchor.Add(child);
         }
 
-        //Transform[] anchors = GameObject.FindGameObjectsWithTag("GamePieceDisplay")
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 6; j++)
@@ -56,7 +55,6 @@ public class CollectionBox : MonoBehaviour
                 bool owned = GameSession.instance.collection.IsPieceOwned(i + 1, j + 1);
                 if (owned)
                 {
-                    Debug.Log("YES");
                     GameObject prefab = GameSession.instance.collection.GetPrefab(i + 1, j + 1);
                     GameObject model = Instantiate(prefab, gamePieceDisplayAnchor[(i * 6) + j]);
                     model.transform.localPosition = Vector3.zero;
