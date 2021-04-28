@@ -52,7 +52,7 @@ public class CollectionBox : MonoBehaviour
             for (int j = 0; j < 6; j++)
             {
                 Debug.Log("Loop " + (i * 6) + j);
-                bool owned = GameSession.instance.collection.IsPieceOwned(i + 1, j + 1);
+                bool owned = GameSession.instance.collection.IsPieceCollectedOrOwned(i + 1, j + 1);
                 if (owned)
                 {
                     GameObject prefab = GameSession.instance.collection.GetPrefab(i + 1, j + 1);
